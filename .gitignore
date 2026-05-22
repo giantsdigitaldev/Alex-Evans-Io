@@ -31,3 +31,6 @@ wp-content/uploads/*.mp4
 *.sql
 *.tar.gz
 *.zip
+
+# Keep the combined backup
+!/alexevans-io-complete-backup-20260522.tar.gz
