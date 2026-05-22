@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+.env
+*.key
+*.pem
+wp-config.php
+wp-config-local.php
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+
+# Build
+vendor/
+
+# Large uploads
+wp-content/uploads/*.jpg
+wp-content/uploads/*.png
+wp-content/uploads/*.webp
+wp-content/uploads/*.mp4
+
+# Backup
+*.sql
+*.tar.gz
+*.zip
