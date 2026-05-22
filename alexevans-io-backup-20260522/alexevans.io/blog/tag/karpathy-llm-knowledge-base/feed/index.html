@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Karpathy llm knowledge base &#8211; Alex Evans Blog</title>
+	<atom:link href="https://alexevans.io/blog/tag/karpathy-llm-knowledge-base/feed/" rel="self" type="application/rss+xml" />
+	<link>https://alexevans.io/blog</link>
+	<description></description>
+	<lastBuildDate>Sun, 12 Apr 2026 02:30:31 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9.4</generator>
+	<item>
+		<title>The karpathy method</title>
+		<link>https://alexevans.io/blog/the-karpathy-method/</link>
+					<comments>https://alexevans.io/blog/the-karpathy-method/#respond</comments>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate></pubDate>
+				<category><![CDATA[The karpathy method]]></category>
+		<category><![CDATA[Karpathy llm knowledge base]]></category>
+		<category><![CDATA[Karpathy llm wiki]]></category>
+		<category><![CDATA[Karpathy Obsidian]]></category>
+		<category><![CDATA[The karpathy method github]]></category>
+		<category><![CDATA[The karpathy method python]]></category>
+		<guid isPermaLink="false">https://alexevans.io/blog/?p=54</guid>
+
+					<description><![CDATA[The karpathy method: practical guide for founders and teams. What to do first and what to skip.]]></description>
+										<content:encoded><![CDATA[<h1>The Karpathy Method</h1>
+<p>Andrej Karpathy doesn&#8217;t write blog posts about productivity. He doesn&#8217;t sell a course on how to think about AI. He builds things, publishes the work, and lets the clarity of the output do the talking. That restraint is, itself, a method. The Karpathy method is what you get when deep technical understanding meets radical simplicity in implementation—and it has real consequences for how founders and engineering teams should approach AI development today.</p>
+<p>If you&#8217;ve watched his lectures, read his GitHub, or followed his sparse but precise writing, you already sense what I mean. If you haven&#8217;t, this post will catch you up on what matters and skip what doesn&#8217;t.</p>
+<hr />
+<h2>What the Karpathy Method Actually Is</h2>
+<p>Andrej Karpathy is a former Director of AI at Tesla and one of OpenAI&#8217;s founding researchers. He&#8217;s probably best known publicly for making deep learning understandable to people who previously thought it was inaccessible. But the method isn&#8217;t just pedagogical. It&#8217;s a working philosophy for how to engage with AI systems at every level.</p>
+<p>At its core, the Karpathy method comes down to a few interlocking principles:</p>
+<p><strong>Understand the stack from the bottom up.</strong> Karpathy doesn&#8217;t use abstractions he can&#8217;t explain. His <a href="https://karpathy.ai/zero-to-hero.html">Neural Networks: Zero to Hero</a> series starts with derivatives and builds up to transformers—not because everyone needs to understand backpropagation to ship a product, but because not understanding it creates compounding debt when things go wrong.</p>
+<p><strong>Build small before building big.</strong> His micrograd and nanoGPT projects are intentionally minimal. Not demo projects. Not toy examples. Actual implementations of the real thing, stripped to the smallest surface area that still captures the essential behavior. This is how you develop intuition that scales.</p>
+<p><strong>Read the data.</strong> One of his most quoted lines is essentially: look at your data. Not dashboards. Not aggregate metrics. The actual examples. This sounds obvious. Almost no one does it.</p>
+<p><strong>Iteration over architecture.</strong> Karpathy repeatedly shows that a well-understood, simple model trained thoughtfully outperforms a complex model treated as a black box. The lesson isn&#8217;t that complexity is bad. It&#8217;s that complexity you don&#8217;t understand is almost always worse than simplicity you do.</p>
+<p>That&#8217;s the method. Not a framework with a catchy acronym. A disposition toward the work.</p>
+<hr />
+<h2>Why This Approach Cuts Through the Current AI Noise</h2>
+<p>Most teams adopting AI right now are operating at the wrong altitude. Either too high—reaching for enterprise platforms, agent frameworks, and orchestration layers before they have a clear problem—or too low, lost in fine-tuning experiments when a good prompt and a well-structured API call would close 90% of the gap.</p>
+<p>The Karpathy method gives you a calibration mechanism. It asks: do you actually understand what this system is doing? And if not, do you understand it well enough to make useful decisions about it?</p>
+<p>You don&#8217;t have to be Andrej Karpathy to apply this. You do need to resist the pressure to adopt complexity before you&#8217;ve earned it.</p>
+<p>Here&#8217;s where most teams go wrong. They see a demo of a retrieval-augmented generation system or an AI agent that autonomously browses the web and books meetings, and they want that. They start building toward that vision without first asking: what&#8217;s the simplest version of this that would still move a real metric? That question—and the discipline to answer it honestly—is the Karpathy method in practice.</p>
+<p>There&#8217;s also a commercial argument here that doesn&#8217;t get made enough. AI systems built by teams who understand them are cheaper to run, easier to debug, and faster to improve. Teams that have cargo-culted their architecture from a conference talk will hit a wall the moment the first real edge case lands. Understanding the stack isn&#8217;t academic luxury. It&#8217;s operational leverage.</p>
+<p>This matters especially for founders. <a href="https://alexevans.io/">Building an AI-native product</a> without a working mental model of how your AI components behave is like building a fintech product without understanding how settlement works. It goes fine until it doesn&#8217;t—and then it goes very badly.</p>
+<hr />
+<h2>The Five Principles Worth Taking Into Your Work</h2>
+<p>Here&#8217;s how the Karpathy method translates into decisions you can make this week.</p>
+<h3>1. Build your own minimal version first</h3>
+<p>Before integrating any AI library or third-party model, build a version that proves you understand what the system is doing. This doesn&#8217;t mean reinventing the wheel. It means writing a 100-line implementation of the thing before you import the 10,000-line library. You&#8217;ll catch assumptions you didn&#8217;t know you were making.</p>
+<p>In practice, this might look like: write your own chunking and retrieval logic before reaching for a vector database framework. Build a simple context-injection prompt before scaffolding a full RAG pipeline. Understand the failure modes at each step before abstracting them away.</p>
+<h3>2. Read the outputs obsessively before tuning the model</h3>
+<p>When an AI system produces bad results, most teams immediately reach for the model settings—adjust hyperparameters, swap architectures, try a newer version. Karpathy&#8217;s instinct is to read the outputs. All of them. Manually. Find the pattern in what&#8217;s failing before writing a single line of remediation code.</p>
+<p>This applies directly to knowledge bases, chatbots, and retrieval systems. Before you touch retrieval parameters, read fifty examples of what your system is actually returning. The answer is usually visible in the data long before it shows up in the metrics.</p>
+<h3>3. Prefer interpretability over capability (until you need capability)</h3>
+<p>A simpler model you understand will beat a powerful model you don&#8217;t—measured by the thing that actually matters in production: reliable behavior over time. This isn&#8217;t a permanent constraint. It&#8217;s a sequencing principle. Start with what you can reason about. Add complexity when you&#8217;ve earned it through understanding.</p>
+<p>For teams building custom AI knowledge bases—work I do directly with clients—this plays out in how you structure document chunking, how you design retrieval logic, and how you test for edge cases. A well-designed simple system will outperform an elaborate one built on assumptions you haven&#8217;t tested.</p>
+<h3>4. Make your evaluation loop as tight as possible</h3>
+<p>Karpathy ships fast because he has a fast feedback loop. He knows quickly whether something is working because he&#8217;s designed his process to surface that signal. Most teams have slow, noisy feedback loops—they deploy, wait for aggregate metrics, then react to patterns that are weeks old.</p>
+<p>Build your eval first. Before you build the feature, define how you&#8217;ll know if it worked. This isn&#8217;t just good engineering practice. It&#8217;s the core habit that makes the Karpathy method scalable to a team.</p>
+<h3>5. Treat vibe-coding as scaffolding, not architecture</h3>
+<p>Karpathy coined &#8220;vibe coding&#8221;—writing code quickly by feel, using AI assistance, without exhaustive upfront planning. He&#8217;s good at it because he has 20 years of pattern recognition underneath it. For most teams, vibe coding is useful for exploration and prototyping. It gets dangerous when it becomes the default mode for systems you&#8217;ll depend on. Know when you&#8217;re scaffolding and when you&#8217;re building. The method requires that distinction.</p>
+<hr />
+<h2>How to Start Applying This Inside Your Team</h2>
+<p>You don&#8217;t need to restructure your entire engineering culture to get value from this. Here&#8217;s a starting sequence that works:</p>
+<p><strong>Week one:</strong> Pick one AI component in your stack—a chatbot, a retrieval system, a classification task—and manually review 100 outputs. Document what&#8217;s failing and why. Don&#8217;t touch the model yet. Just read.</p>
+<p><strong>Week two:</strong> Write a one-page document explaining how the component works end to end. Not the API docs. The actual mechanism. Where the text goes, how it gets chunked, what retrieval strategy is being used, what the model is being asked to do with the result. If you can&#8217;t write this document, you&#8217;re operating the system at the wrong abstraction level.</p>
+<p><strong>Week three:</strong> Build a minimal eval suite. Ten to twenty representative inputs, expected outputs, a pass/fail signal. Run it before every deployment. It doesn&#8217;t have to be automated immediately—a spreadsheet is fine to start.</p>
+<p><strong>Week four:</strong> Make one targeted improvement based on what you learned in weeks one and two. Not a new model. Not a new architecture. One specific fix to one specific failure pattern you found by reading outputs.</p>
+<p>This is a slow start by the standards of teams trying to ship fast. It&#8217;s a fast start by the standards of teams that want to build something reliable.</p>
+<p>If your team needs this kind of structured implementation support—not strategy slides, not a vendor pitch, but actual architecture and execution—<a href="https://alexevans.io/#contact">get in touch</a>. This is the work I do with startups and enterprise teams across fintech, SaaS, and product-led businesses.</p>
+<hr />
+<h2>The Simplest Summary of a Sophisticated Approach</h2>
+<p>The Karpathy method isn&#8217;t a productivity hack or a framework you can bolt onto your current workflow. It&#8217;s a stance. Build from understanding, not from abstraction. Evaluate before you optimize. Prefer the thing you can explain over the thing that merely works.</p>
+<p>That discipline compounds. Teams that apply it build AI systems that are cheaper to run, easier to debug, and faster to improve than teams chasing the most sophisticated available tooling. It&#8217;s the slow path that gets you there faster.</p>
+<p>Karpathy himself has said the best neural network training run is one where you understand every decision that went into it. That sentence generalizes cleanly beyond neural networks. The best product you ship is one where you understand every decision that went into it.</p>
+<p>Start there.</p>
+<hr />
+<p>Ready to turn your site—or your internal knowledge—into something that actually works? <a href="https://alexevans.io/#contact">Book a strategy call</a> and we can map the next step.</p>
+<hr />
+]]></content:encoded>
+					
+					<wfw:commentRss>https://alexevans.io/blog/the-karpathy-method/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

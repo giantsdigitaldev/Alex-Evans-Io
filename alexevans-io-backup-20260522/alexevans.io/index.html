@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<!-- Alex Evans | Portfolio — PHP template. Header/footer shared across pages. -->
+<html dir="ltr" lang="en" class="no-js font-neuemontreal font-jetbrainsmono" data-asset-base="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Architecture, Custom AI, Web Design &amp; Development | Alex Evans</title>
+  <meta name="description" content="Alex Evans: AI architecture, custom AI systems, AI wiki, AI SaaS, web design and web development for startups and enterprises. US, Germany, Europe.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Alex Evans">
+    <meta name="keywords" content="AI architecture, custom AI, custom AI wiki, AI SaaS, AI services, web design, web development, UI/UX design">
+    <link rel="canonical" href="index.html">
+    <link rel="alternate" hreflang="en" href="index.html">
+    <link rel="alternate" hreflang="de" href="de.html">
+    <link rel="alternate" hreflang="x-default" href="index.html">
+    <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alexevans.io/">
+  <meta property="og:title" content="AI Architecture, Custom AI, Web Design &amp; Development | Alex Evans">
+  <meta property="og:image" content="https://alexevans.io/images/2qqVHc8elDb5.jpg">
+  <meta property="og:image:alt" content="AI Architecture, Custom AI, Web Design &amp; Development | Alex Evans">
+  <meta property="og:description" content="Alex Evans: AI architecture, custom AI systems, AI wiki, AI SaaS, web design and web development for startups and enterprises. US, Germany, Europe.">
+  <meta property="og:site_name" content="Alex Evans">
+  <meta property="og:locale" content="en_US">
+      <meta property="og:locale:alternate" content="de_DE">
+    <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:site" content="@alexevansio">
+  <meta property="twitter:url" content="https://alexevans.io/">
+  <meta property="twitter:title" content="AI Architecture, Custom AI, Web Design &amp; Development | Alex Evans">
+  <meta property="twitter:image" content="https://alexevans.io/images/2qqVHc8elDb5.jpg">
+  <meta property="twitter:image:alt" content="AI Architecture, Custom AI, Web Design &amp; Development | Alex Evans">
+  <meta property="twitter:description" content="Alex Evans: AI architecture, custom AI systems, AI wiki, AI SaaS, web design and web development for startups and enterprises. US, Germany, Europe.">
+  <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon/android-chrome-512x512.png">
+  <link href="css/tailwind.css@v=2.css" rel="stylesheet">
+  <link href="css/style.css@v=2.css" rel="stylesheet" fetchpriority="high">
+    <link rel="preload" href="img/alex_evans_hero.webp" as="image" fetchpriority="high">
+      <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alex Evans",
+    "url": "https://alexevans.io/",
+    "jobTitle": "AI Architect, Web Designer, Web Developer",
+    "description": "Alex Evans: AI architecture, custom AI systems, AI wiki, AI SaaS, web design and web development for startups and enterprises. US, Germany, Europe."
+}</script>
+    <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Alex Evans",
+    "url": "https://alexevans.io/",
+    "description": "Alex Evans: AI architecture, custom AI systems, AI wiki, AI SaaS, web design and web development for startups and enterprises. US, Germany, Europe.",
+    "areaServed": [
+        "United States",
+        "Germany",
+        "Europe"
+    ],
+    "serviceType": [
+        "AI Architecture",
+        "Custom AI Development",
+        "Custom AI Wiki Development",
+        "AI SaaS Development",
+        "Web Design",
+        "Web Development",
+        "UI/UX Design"
+    ]
+}</script>
+    <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Alex Evans",
+    "url": "https://alexevans.io/"
+}</script>
+    <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://alexevans.io/"
+        }
+    ]
+}</script>
+      <!-- Inline styles: section-specific overrides (bio/contact light theme, nav past-hero) -->
+  <style>
+    #bio { background-color: #ffffff !important; color: #171717 !important; }
+    #bio [class*="text-foreground/50"] { color: rgb(115 115 115) !important; }
+    #bio [class*="text-foreground/80"] { color: rgb(64 64 64) !important; }
+    #bio .conor-tooltip-trigger { border-color: rgba(23, 23, 23, 0.2); }
+    #bio .conor-tooltip-trigger:hover { border-color: rgba(23, 23, 23, 0.6); }
+    #bio .bg-foreground\/10 { background-color: rgba(23, 23, 23, 0.1); }
+    #bio a { color: rgb(23 23 23) !important; }
+    #bio svg, #bio path { color: rgb(23 23 23); fill: currentColor; stroke: currentColor; }
+    #bio p, #bio .font-label { color: #171717 !important; }
+    #contact {
+      background-color: #f5f5f5 !important; color: #0a0a0a !important; min-height: 100vh;
+    }
+    #contact .flex.h-screen { display: flex !important; }
+    #contact .contact-muted, #contact [class*="text-foreground/50"], #contact .text-foreground\/50 { color: rgba(10, 10, 10, 0.5) !important; }
+    #contact a, #contact .font-label, #contact .font-pixel { color: #0a0a0a !important; }
+    #contact a:hover { color: rgba(10, 10, 10, 0.8) !important; }
+    #contact svg, #contact path { color: #0a0a0a; fill: currentColor; stroke: currentColor; }
+    #contact hr { display: none !important; }
+    #contact ul a, #contact ul .font-label { color: #0a0a0a !important; }
+    #contact .group span { color: inherit; }
+    #site-nav { transition: background-color 0.5s ease, color 0.25s ease; }
+    #site-nav.nav-past-hero { background-color: rgb(245 245 245); color: #171717; }
+    #site-nav.nav-past-hero a, #site-nav.nav-past-hero span { color: #171717 !important; }
+    #site-nav.nav-past-hero .text-foreground\/50, #site-nav.nav-past-hero [class*="text-foreground/50"] { color: rgb(115 115 115) !important; }
+    #site-nav.nav-past-hero svg { color: #171717; }
+    #site-nav.nav-past-hero path { fill: currentColor; stroke: #000000; }
+        /* Homepage animated barcode (same as case-study overview) */
+    .case-overview__barcode { display: flex; flex-direction: column; gap: 0.35rem; }
+    .case-overview__barcode-text { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; color: rgb(115 115 115); }
+    .case-overview__barcode-char { display: inline-block; }
+    .case-overview__barcode-img { max-width: 140px; height: auto; max-height: 32px; object-fit: contain; opacity: 0.7; }
+    #bio .case-overview__barcode-img { opacity: 0.5; }
+        /* Schedule a call: only articulated corners (SVGs) turn dark via .nav-past-hero svg above */
+  </style>
+</head>
+
+<body>
+    <div id="app" class="relative flex flex-col grow transition-colors duration-700">
+    <script id="kb-color-mode-script">
+      !(function() {
+        try {
+          var a = function(o) {
+              var l = "(prefers-color-scheme: dark)",
+                v = window.matchMedia(l).matches ? "dark" : "light",
+                e = o === "system" ? v : o,
+                d = document.documentElement,
+                s = e === "dark";
+              return d.style.colorScheme = e, d.dataset.kbTheme = e, o
+            },
+            u = a,
+            h = "system",
+            r = "kb-color-mode",
+            t = document.cookie.match(new RegExp("(^| )".concat(r, "=([^;]+)"))),
+            c = t ? t[2] : null;
+          c ? a(c) : document.cookie = "".concat(r, "=").concat(a(h), "; max-age=31536000; path=/")
+        } catch (a) {}
+      })();
+    </script>
+    <div class="fixed left-0 right-0 top-0 bottom-0 flex w-screen h-[100svh] z-50 pointer-events-none" style="will-change:transform;transform:translateZ(0)"></div>
+    <div class="relative">
+      <main data-gsap-scope="true" class="relative flex flex-col grow font-sans ">
+        <nav id="site-nav" class="z-30 fixed flex w-full items-center justify-between dt:dr-grid dt:grid-cols-12 p-safe ">
+          <div class="flex col-span-3 flex-col" data-gsap="navigation-logo"><span class="overflow-clip">
+              <h1 class="font-label text-xs capitalize">> <a href="index.html#hero" class="inline-block whitespace-pre-wrap" aria-current="page"><span class="sr-only">Alex Evans</span><span aria-hidden="true" class="">Alex Evans</span></a></h1>
+            </span><span class="overflow-clip"><span class="font-label text-xs ml-2.5 text-foreground/50">AI Engineer</span></span></div>
+          <div class="flex col-span-4 flex-col text-xs font-label desktop-only" data-gsap="navigation-location">
+            <a href="blog.html" class="group relative flex flex-col items-start overflow-hidden" aria-label="Catch up on Industry News"><span class="block">Catch up on</span><span class="relative flex min-h-[1em] flex-col overflow-hidden"><span class="text-foreground/50 transition-transform duration-300 group-hover:-translate-y-full">Industry News</span><span class="!absolute left-0 top-0 min-h-[1em] text-foreground/50 transition-transform duration-300 translate-y-full group-hover:translate-y-0">Industry News</span></span></a>
+          </div>
+          <div class="site-nav-industry-mobile flex items-center" data-gsap="navigation-location-mobile">
+            <a href="blog.html" class="font-label text-xs text-foreground/50 hover:text-foreground transition-colors min-h-[44px] inline-flex flex-col items-start" aria-label="Catch up on Industry News"><span class="block">Catch up on</span><span class="block">Industry News</span></a>
+          </div>
+          <div class="flex col-span-3 flex-col text-xs font-label desktop-only" data-gsap="navigation-work"><a href="index.html#work" class="group relative flex flex-col items-start overflow-hidden" aria-label="Review my current Work"><span class="block">Review my</span><span class="relative flex min-h-[1em] flex-col overflow-hidden"><span class="text-foreground/50 transition-transform duration-300 group-hover:-translate-y-full">Current Work</span><span class="!absolute left-0 top-0 min-h-[1em] text-foreground/50 transition-transform duration-300 translate-y-full group-hover:translate-y-0">Current Work</span></span></a></div>
+          <div class="-my-safe -col-start-1 col-span-3 relative flex items-center justify-end dr-gap-16" data-gsap="navigation-schedule-call">
+            <div class="site-nav-actions">
+                            <details class="site-language-switcher" data-lang-switcher>
+                <summary class="site-language-switcher__summary font-label text-xs" aria-label="Switch language">
+                  <span>EN</span>
+                  <svg class="site-language-switcher__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                    <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </summary>
+                <div class="site-language-switcher__menu" role="menu">
+                                    <a href="de.html" class="site-language-switcher__link" data-lang-link data-lang-value="de" role="menuitem">DE</a>
+                                  </div>
+              </details>
+                            <a href="index.html#contact" class="group relative dr-py-8 dr-px-12 font-label text-xs cursor-pointer flex items-center justify-center">
+                <span class="schedule-call-corners schedule-call-corners--light absolute inset-0 pointer-events-none" aria-hidden="true"><svg class="absolute left-0 top-0 group-hover:-left-0.5 group-hover:-top-0.5 top-left transition-all duration-300 opacity-30 group-hover:opacity-100" width="7" height="7" role="img" aria-label="Arrow" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7V1H7" stroke="currentColor"></path></svg><svg width="7" height="7" viewBox="0 0 7 7" role="img" aria-label="Arrow" class="absolute top-0 right-0 group-hover:-right-0.5 group-hover:-top-0.5 transition-all duration-300 opacity-30 group-hover:opacity-100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 7V1H0" stroke="currentColor"></path></svg><svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arrow" class="absolute bottom-0 left-0 group-hover:-bottom-0.5 group-hover:-left-0.5 transition-all duration-300 opacity-30 group-hover:opacity-100"><path d="M1 0V6H7" stroke="currentColor"></path></svg><svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arrow" class="absolute bottom-0 right-0 group-hover:-bottom-0.5 group-hover:-right-0.5 transition-all duration-300 opacity-30 group-hover:opacity-100"><path d="M6 0V6H0" stroke="currentColor"></path></svg></span><span class="schedule-call-corners schedule-call-corners--dark absolute inset-0 pointer-events-none opacity-0" aria-hidden="true"><svg class="absolute left-0 top-0 group-hover:-left-0.5 group-hover:-top-0.5 top-left transition-all duration-300 opacity-30 group-hover:opacity-100" width="7" height="7" role="img" aria-label="Arrow" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7V1H7" stroke="#171717"></path></svg><svg width="7" height="7" viewBox="0 0 7 7" role="img" aria-label="Arrow" class="absolute top-0 right-0 group-hover:-right-0.5 group-hover:-top-0.5 transition-all duration-300 opacity-30 group-hover:opacity-100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 7V1H0" stroke="#171717"></path></svg><svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arrow" class="absolute bottom-0 left-0 group-hover:-bottom-0.5 group-hover:-left-0.5 transition-all duration-300 opacity-30 group-hover:opacity-100"><path d="M1 0V6H7" stroke="#171717"></path></svg><svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arrow" class="absolute bottom-0 right-0 group-hover:-bottom-0.5 group-hover:-right-0.5 transition-all duration-300 opacity-30 group-hover:opacity-100"><path d="M6 0V6H0" stroke="#171717"></path></svg></span><span class="group relative flex items-start overflow-hidden "><span class="h-full translate-y-0 items-baseline transition-transform duration-300 group-hover:-translate-y-full">Book a Meeting</span><span class="!absolute left-0 h-full translate-y-full !items-center transition-transform duration-300 group-hover:translate-y-0">Book a Meeting</span></span>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <!-- Hero background: subtle animated gif -->
+        <div class="inset-0 fixed left-0 z-0 right-0 [background-image:url('images/c1hxznvFGR5b.gif')] bg-center bg-repeat pointer-events-none opacity-5"></div>
+        <!-- Scanline / CRT-style overlay (CSS animation) -->
+        <div class="z-5 before:animate-scanline after:animate-scanlines pointer-events-none fixed h-[calc(var(--vh)-2px)] w-full overflow-hidden before:pointer-events-none before:absolute before:block before:h-[2px] before:w-full before:bg-[rgba(255,_255,_255,_0.3)] before:opacity-30 before:content-[''] after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:right-0 after:top-0 after:bg-[linear-gradient(to_bottom,_transparent_50%,_rgba(255,_255,_255,_0.01)_50%)] after:content-[''] after:bg-size" style="--bg-size:100% 4px"></div>
+        <!-- Hero: full-viewport section with title and code-reveal effect -->
+        <section id="hero" class="relative w-full h-svh overflow-hidden">
+          <div class="hero-bg-image" role="presentation" aria-hidden="true">
+            <img
+              class="hero-bg-image__img"
+              src="img/alex_evans_hero.webp"
+              alt=""
+              aria-hidden="true"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            >
+          </div>
+          <div class="hero-code__layers" data-code-reveal>
+            <div class="hero-spotlight" role="img" aria-hidden="true"></div>
+            <div class="hero-splash__code hero-code__code" aria-hidden="true"></div>
+          </div>
+          <div class="hero-overlay" role="img" aria-hidden="true"></div>
+          <div class="hero-mobile-glitch" aria-hidden="true"></div>
+          <canvas id="hero-matrix-canvas" class="hero-matrix-canvas" aria-hidden="true"></canvas>
+          <div class="dr-grid absolute px-safe inset-0 pointer-events-none z-50">
+            <div class="w-px h-full col-start-3 row-span-full border-l border-foreground/5 origin-top-left" data-gsap="hero-line-1"></div>
+            <div class="w-px h-full col-start-11 row-span-full border-l border-foreground/5 origin-bottom-right" data-gsap="hero-line-2"></div>
+          </div>
+          <div class="flex items-center justify-center flex-grow absolute inset-0 -z-10" aria-hidden="true">
+            <div class="w-full h-full" style="opacity:0;visibility:hidden" data-gsap="hero-scene" role="img" aria-label="Alex Evans"></div>
+          </div>
+          <div class="flex flex-col items-center justify-center">
+            <div class="hero-title-block absolute left-safe bottom-safe z-5"><span class="font-label text-xs text-foreground/50" data-gsap="hero-numbered">01</span>              <h2 class="font-hero-1 leading-tighter z-5 relative mix-blend-difference " data-gsap="hero-title"><span><span class="font-pixel title-char-morph" data-morph-char="AI">AI</span> System</span><br> <span class="hero-title-engineer-line"><span class="font-pixel title-char-morph" data-morph-char="En">En</span>gineer</span></h2>            </div>
+            <div class="hero-title-block absolute right-safe bottom-safe text-right z-5"><span data-gsap="hero-numbered" class="font-label text-xs text-foreground/50">02</span>              <h2 class="font-hero-1 leading-tighter z-5 relative mix-blend-difference " data-gsap="hero-title"><span><span class="font-pixel title-char-morph" data-morph-char="SO">SO</span>ftware</span><br> <span><span class="font-pixel title-char-morph" data-morph-char="De">De</span>signer</span></h2>            </div>
+          </div>
+        </section>
+        <section id="bio" class="dt:dr-grid px-safe dr-py-48 dt:dr-py-120 relative bg-white text-neutral-900">
+          <hr class="absolute bottom-0 left-0 right-0 h-px scale-x-0 bg-foreground/10 mx-safe transition-transform duration-1000 origin-left ease-in-cubic top-0">          <div class="col-span-6 col-start-1 flex flex-col dr-gap-y-8 dt:dr-gap-y-12 text-[clamp(16px,_1.5vw,_24px)] leading-tighter text-balance"><span class="font-label text-foreground/50">A little about me</span>
+                        <p>AI Architect & Serial Entrepreneur obsessed with turning ideas into intelligent ecosystems.</p>
+            <p>Over 10 years of building sleek, high-powered platforms for startups, enterprises, and everything in between.</p>
+            <p>Born in Orlando, graduated in theology, founder of 7 ventures in multiple industries. Fintech advisor for a <span class="conor-tooltip-trigger inline-block cursor-pointer border-b border-foreground/20 hover:border-foreground/60 transition-colors duration-300" tabindex="0" role="button" aria-describedby="edelcoin-tooltip"><a href="https://edelcoin.com/" target="_blank" rel="noopener noreferrer" class="pointer-events-auto">Swiss stablecoin</a><span id="edelcoin-tooltip" class="conor-tooltip-modal" role="tooltip" aria-hidden="true"><span class="conor-tooltip-frame"><img src="img/edelcoin.webp" alt="Edelcoin" loading="lazy" /></span></span></span>, crypto marketer for <span class="conor-tooltip-trigger inline-block cursor-pointer border-b border-foreground/20 hover:border-foreground/60 transition-colors duration-300" tabindex="0" role="button" aria-describedby="axion-tooltip"><a href="https://axion.network/" target="_blank" rel="noopener noreferrer" class="pointer-events-auto">Axion Network</a><span id="axion-tooltip" class="conor-tooltip-modal" role="tooltip" aria-hidden="true"><span class="conor-tooltip-frame"><img src="img/axion.webp" alt="Axion Network" loading="lazy" /></span></span></span>, <span class="conor-tooltip-trigger inline-block cursor-pointer border-b border-foreground/20 hover:border-foreground/60 transition-colors duration-300" tabindex="0" role="button" aria-describedby="trustswap-tooltip"><a href="https://trustswap.com/" target="_blank" rel="noopener noreferrer" class="pointer-events-auto">TrustSwap</a><span id="trustswap-tooltip" class="conor-tooltip-modal" role="tooltip" aria-hidden="true"><span class="conor-tooltip-frame"><img src="img/trustswap.webp" alt="TrustSwap" loading="lazy" /></span></span></span>, and PR pro who landed features in Forbes and Yahoo Finance.</p>
+            <p>Once organized sponsorships for UFC champ <span class="conor-tooltip-trigger inline-block cursor-pointer border-b border-foreground/20 hover:border-foreground/60 transition-colors duration-300" tabindex="0" role="button" aria-describedby="amanda-tooltip"><a href="https://trustswap.com/blog/2021-review-2022-roadmap/" target="_blank" rel="noopener noreferrer" class="pointer-events-auto">Amanda Nunes</a><span id="amanda-tooltip" class="conor-tooltip-modal" role="tooltip" aria-hidden="true"><span class="conor-tooltip-frame"><img src="https://trustswap.com/wp-content/uploads/2022/01/Screen-Shot-2022-01-01-at-4.56.24-PM.png" alt="Amanda Nunes x TrustSwap" loading="lazy" /></span></span></span>, talked crypto in Monaco during the <span class="conor-tooltip-trigger inline-block cursor-pointer border-b border-foreground/20 hover:border-foreground/60 transition-colors duration-300" tabindex="0" role="button" aria-describedby="monaco-tooltip"><a href="https://www.youtube.com/watch?v=7INBR3iB4Y0&t=73s" target="_blank" rel="noopener noreferrer" class="pointer-events-auto">2024 Grand Prix</a><span id="monaco-tooltip" class="conor-tooltip-modal" role="tooltip" aria-hidden="true"><span class="conor-tooltip-frame"><img src="img/monaco-alex.jpg" alt="Alex at Monaco Grand Prix" loading="lazy" /></span></span></span>, and shared faith and Jesus with royalty, sheikhs, and even <span class="conor-tooltip-trigger inline-block cursor-pointer border-b border-foreground/20 hover:border-foreground/60 transition-colors duration-300" tabindex="0" role="button" aria-describedby="conor-tooltip">Conor McGregor<span id="conor-tooltip" class="conor-tooltip-modal" role="tooltip" aria-hidden="true"><span class="conor-tooltip-frame"><img src="img/conner-me.jpeg" alt="Alex with Conor McGregor" loading="lazy" /></span></span></span>.</p>
+            <p>Retired at 37 - now back in the game for the love of AI.</p>
+                      </div>
+          <div class="col-span-2 justify-between col-start-10 w-full flex flex-col flex-wrap gap-6 dt:gap-20 text-left font-label text-sm dr-mt-32 dt:mt-0">
+            <blockquote class="text-foreground/80 text-sm font-normal italic leading-snug relative">&quot;The future of design isn&#039;t what we create-it&#039;s what our creations learn to become.&quot;</blockquote>
+            <ul class="relative">
+              <li class="text-foreground/80">10th June, 1982<br> Orlando FL<br> USA</li><svg width="11" height="12" viewBox="0 0 11 12" fill="none" role="img" aria-label="Ornament" xmlns="http://www.w3.org/2000/svg" class="absolute -bottom-safe -right-safe">
+                <path opacity="0.2" d="M10 -1.19209e-07V11H-2.98023e-08" stroke="currentColor" stroke-opacity="0.95" style="stroke:currentColor;stroke-opacity:0.95;"></path>
+              </svg>            </ul>
+            <div class="text-foreground/80 relative">26.1392° N, <br>81.7955° W<svg width="11" height="12" viewBox="0 0 11 12" fill="none" role="img" aria-label="Ornament" xmlns="http://www.w3.org/2000/svg" class="absolute -bottom-safe -right-safe">
+                <path opacity="0.2" d="M10 -1.19209e-07V11H-2.98023e-08" stroke="currentColor" stroke-opacity="0.95" style="stroke:currentColor;stroke-opacity:0.95;"></path>
+              </svg></div>            <div class="flex-inline barcode-animated-wrap">
+              <div class="case-overview__barcode" data-barcode-reveal>
+                <span class="case-overview__barcode-text font-mono text-xs uppercase dr-mb-8 block text-foreground/50" aria-hidden="true"><span class="case-overview__barcode-char" data-morph-char="W">W</span><span class="case-overview__barcode-char" data-morph-char="G">G</span><span class="case-overview__barcode-char" data-morph-char="M">M</span><span class="case-overview__barcode-char" data-morph-char="A">A</span><span class="case-overview__barcode-char" data-morph-char=")">)</span><span class="case-overview__barcode-char" data-morph-char=" "> </span><span class="case-overview__barcode-char" data-morph-char="V">V</span><span class="case-overview__barcode-char" data-morph-char="X">X</span><span class="case-overview__barcode-char" data-morph-char="Z">Z</span><span class="case-overview__barcode-char" data-morph-char="V">V</span><span class="case-overview__barcode-char" data-morph-char="D">D</span><span class="case-overview__barcode-char" data-morph-char="O">O</span><span class="case-overview__barcode-char" data-morph-char="R">R</span><span class="case-overview__barcode-char" data-morph-char="M">M</span><span class="case-overview__barcode-char" data-morph-char="_">_</span><span class="case-overview__barcode-char" data-morph-char="+">+</span></span>
+                <img src="img/barcode.png" alt="Barcode" role="img" width="120" height="36" loading="lazy" class="case-overview__barcode-img">
+              </div>
+            </div>          </div>
+        </section>
+        <section id="work" class="px-safe dr-py-24 dt:dr-py-64 relative">
+          <hr class="absolute bottom-0 left-0 right-0 h-px scale-x-0 bg-foreground/10 mx-safe transition-transform duration-1000 origin-left ease-in-cubic top-0">          <div class="work-section-header dt:dr-grid dt:dr-grid-cols-2 dr-mb-32 dt:dr-mb-64 max-dt:flex max-dt:flex-col dr-gap-24 relative">            <h2 class="col-span-6 font-heading-1 " data-gsap="hero-title"><span><span class="font-pixel title-char-morph" data-morph-char="Wo">Wo</span>rk</span></h2>            <p class="font-label col-span-6 text-foreground/50 dt:dr-pl-64 text-xs">PROJECTS: > 75 DEPLOYED<br>Hours worked: 30K<br>Coffees: 10000</p>
+          </div>          <div class="work-cards-grid-wrap">
+            <ul class="work-cards-grid list-none p-0 m-0">
+            <li class="work-card-slide" data-gsap="item"><a href="finger-ki-wiki.html" class="group block" aria-label="View Finger KI Wiki case study">
+                <div class="work-card-frame overflow-hidden w-full col-span-full dr-mb-16 relative">
+                  <div data-gsap="image-overlay" class="work-frame-overlay absolute w-full h-full left-0 right-0 bottom-0 top-0 bg-background z-50 scale-x-100 origin-right"></div>
+                  <img loading="lazy" data-gsap="image" class="w-full h-full object-cover object-center block" decoding="async" src="img/work/finger-beton.jpg" alt="Finger KI Wiki">
+                </div>
+                <div>
+                  <div class="overflow-clip">
+                    <p class="font-label text-foreground/50 dr-mb-8" data-gsap="content">2025-2026</p>
+                  </div>
+                  <div class="overflow-clip">
+                    <h5 class="font-heading-5 max-dt:dr-mb-8 dr-mb-4" data-gsap="title"><span><span class="font-pixel title-char-morph" data-morph-char="Fi">Fi</span>nger KI Wiki</span></h5>
+                  </div>
+                </div>
+                <div class="overflow-clip">
+                  <p class="font-body-sm dr-mb-32 dt:dr-mb-32 text-foreground/50" data-gsap="excerpt">AI-powered knowledge platform for Finger Beton. Strategy, AI/ML, UX, Development, iOS.</p>
+                </div>
+              </a></li>
+            <li class="work-card-slide" data-gsap="item"><a href="songtuna.html" class="group block songtuna-card" aria-label="View Songtuna case study">
+                <div class="songtuna-frame work-card-frame overflow-hidden w-full col-span-full dr-mb-16 relative">
+                  <div data-gsap="image-overlay" class="work-frame-overlay absolute w-full h-full left-0 right-0 bottom-0 top-0 bg-background z-50 scale-x-100 origin-right"></div>
+                  <img loading="lazy" data-gsap="image" class="songtuna-img col-span-full block" decoding="async" src="img/work/songtuna.webp" alt="Songtuna.com">
+                </div>
+                <div>
+                  <div class="overflow-clip">
+                    <p class="font-label text-foreground/50 dr-mb-8" data-gsap="content">2026</p>
+                  </div>
+                  <div class="overflow-clip">
+                    <h5 class="font-heading-5 max-dt:dr-mb-8 dr-mb-4" data-gsap="title"><span><span class="font-pixel title-char-morph" data-morph-char="So">So</span>ngtuna.com</span></h5>
+                  </div>
+                </div>
+                <div class="overflow-clip">
+                  <p class="font-body-sm dr-mb-32 dt:dr-mb-32 text-foreground/50" data-gsap="excerpt">AI-powered marketplace for custom songs by real artists for any occasion.</p>
+                </div>
+              </a></li>
+            <li class="work-card-slide" data-gsap="item"><a href="cristOS.html" class="group block" aria-label="View cristOS case study">
+                <div class="work-card-frame overflow-hidden w-full col-span-full dr-mb-16 relative">
+                  <div data-gsap="image-overlay" class="work-frame-overlay absolute w-full h-full left-0 right-0 bottom-0 top-0 bg-background z-50 scale-x-100 origin-right"></div>
+                  <img loading="lazy" data-gsap="image" class="w-full h-full object-cover object-top block" decoding="async" src="img/work/cristos.jpg" alt="cristOS">
+                </div>
+                <div>
+                  <div class="overflow-clip">
+                    <p class="font-label text-foreground/50 dr-mb-8" data-gsap="content">2025</p>
+                  </div>
+                  <div class="overflow-clip">
+                    <h5 class="font-heading-5 max-dt:dr-mb-8 dr-mb-4" data-gsap="title"><span><span class="font-pixel title-char-morph" data-morph-char="cr">cr</span>istOS</span></h5>
+                  </div>
+                </div>
+                <div class="overflow-clip">
+                  <p class="font-body-sm dr-mb-32 dt:dr-mb-32 text-foreground/50" data-gsap="excerpt">Project description placeholder.</p>
+                </div>
+              </a></li>
+          </ul>
+          </div>
+          <ul class="work-timeline-list col-span-full row-start-3 flex flex-col">
+            <li class="work-timeline-2024-block">
+              <div class="work-timeline-2024">
+                <div class="group relative"><a target="_blank" href="https://edelcoin.com" class="dt:not-last-of-type:dr-pb-96 relative w-full not-last-of-type:dr-pb-24 dt:dr-grid py-safe transition-all ease-in-out will-change-auto items-center block">
+                    <div class="group-hover:scale-x-100 absolute scale-x-0 w-full inset-0 work-timeline-2024-hover will-change-auto transition-all duration-600 ease-in-out origin-left h-full"></div><span  data-timeline="" class="col-start-1 col-span-2 text-xs font-label dt:text-sm text-foreground/50">2024</span>
+                    <div class="dt:col-span-3 dt:col-start-4 dt:text-xl"><span>Edelcoin.com</span></div><span class="text-foreground/50 text-xs dt:col-span-3 dt:col-start-7 dt:text-base">Crypto FinTech Consultant</span>
+                    <div class="text-foreground/80 text-xs space-y-4 leading-relaxed dt:col-span-full dt:col-start-auto text-right font-label" data-cta=""><span class="font-sans">[</span> View <span class="font-sans">]</span></div>
+                    <hr class="border-foreground/30 absolute bottom-0 w-full origin-left border-b" data-line="">
+                  </a></div>
+                <div class="group relative"><a target="_blank" href="https://trustswap.com/" class="dt:not-last-of-type:dr-pb-96 relative w-full not-last-of-type:dr-pb-24 dt:dr-grid py-safe transition-all ease-in-out will-change-auto items-center block">
+                    <div class="group-hover:scale-x-100 absolute scale-x-0 w-full inset-0 work-timeline-2024-hover will-change-auto transition-all duration-600 ease-in-out origin-left h-full"></div><span  data-timeline="" class="col-start-1 col-span-2 text-xs font-label dt:text-sm text-foreground/50">2024</span>
+                    <div class="dt:col-span-3 dt:col-start-4 dt:text-xl"><span>TrustSwap</span></div><span class="text-foreground/50 text-xs dt:col-span-3 dt:col-start-7 dt:text-base">Marketing Campaign Consultant</span>
+                    <div class="text-foreground/80 text-xs space-y-4 leading-relaxed dt:col-span-full dt:col-start-auto text-right font-label" data-cta=""><span class="font-sans">[</span> View <span class="font-sans">]</span></div>
+                    <hr class="border-foreground/30 absolute bottom-0 w-full origin-left border-b" data-line="">
+                  </a></div>
+              </div>
+            </li>
+            <li class="group relative"><a target="_blank" href="https://maks-products.eu/" class="dt:not-last-of-type:dr-pb-96 relative w-full not-last-of-type:dr-pb-24 dt:dr-grid py-safe transition-all ease-in-out will-change-auto items-center block">
+                <div class="group-hover:scale-x-100 absolute scale-x-0 w-full inset-0 bg-foreground will-change-auto transition-all duration-600 ease-in-out origin-left mix-blend-exclusion h-full"></div><span  data-timeline="" class="col-start-1 col-span-2 text-xs font-label dt:text-sm text-foreground/50">2023</span>
+                <div class="dt:col-span-3 dt:col-start-4 dt:text-xl"><span>MAKS Products</span></div><span class="text-foreground/50 text-xs dt:col-span-3 dt:col-start-7 dt:text-base">Marketing, design and web development lead architect + campaign manager</span>
+                <div class="text-foreground/80 text-xs space-y-4 leading-relaxed dt:col-span-full dt:col-start-auto text-right font-label" data-cta=""><span class="font-sans">[</span> View <span class="font-sans">]</span></div>
+                <hr class="border-foreground/30 absolute bottom-0 w-full origin-left border-b" data-line="">
+              </a></li>
+            <li class="group relative"><a target="_blank" href="https://www.apptec360.com/" class="dt:not-last-of-type:dr-pb-96 relative w-full not-last-of-type:dr-pb-24 dt:dr-grid py-safe transition-all ease-in-out will-change-auto items-center block">
+                <div class="group-hover:scale-x-100 absolute scale-x-0 w-full inset-0 bg-foreground will-change-auto transition-all duration-600 ease-in-out origin-left mix-blend-exclusion h-full"></div><span  data-timeline="" class="col-start-1 col-span-2 text-xs font-label dt:text-sm text-foreground/50">2023</span>
+                <div class="dt:col-span-3 dt:col-start-4 dt:text-xl"><span>AppTec UEM Platform</span></div><span class="text-foreground/50 text-xs dt:col-span-3 dt:col-start-7 dt:text-base">Web development and marketing</span>
+                <div class="text-foreground/80 text-xs space-y-4 leading-relaxed dt:col-span-full dt:col-start-auto text-right font-label" data-cta=""><span class="font-sans">[</span> View <span class="font-sans">]</span></div>
+                <hr class="border-foreground/30 absolute bottom-0 w-full origin-left border-b" data-line="">
+              </a></li>
+          </ul>
+        </section>
+        <section id="tech-stack" class="px-safe dr-py-24 dt:dr-py-64 relative">
+          <hr class="absolute bottom-0 left-0 right-0 h-px scale-x-0 bg-foreground/10 mx-safe transition-transform duration-1000 origin-left ease-in-cubic top-0">          <div class="dt:dr-grid dr-mb-32 dt:dr-mb-64 max-dt:flex max-dt:flex-col dr-gap-24 items-baseline">            <p class="font-heading-2 col-span-6 col-start-1 row-start-1 dr-py-24 "><span><span class="font-pixel title-char-morph" data-morph-char="Te">Te</span>ch</span> <span><span class="font-pixel title-char-morph" data-morph-char="St">St</span>ack</span></p>            <ul class="flex flex-col dr-gap-0 col-span-6" data-gsap="tech-stack-list">
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>HTML/CSS<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>JavaScript<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>TypeScript<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Python<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Swift<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Java<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>PHP<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Ruby<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>C#<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Go<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>SQL<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>NoSQL<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Pinecone<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Haystack<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>OpenClaw<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Codex<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Cursor AI<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+              <li class="font-heading-1 flex items-center py-3 relative group">
+                <div class="inline-block relative" data-gsap="tech-stack-item"><span class="absolute -translate-x-full top-0 font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">></span>Adobe CC<span class=" font-pixel group-hover:opacity-100 opacity-0 transition-opacity duration-0 text-foreground/50">&lt;</span>
+                </div>
+              </li>
+            </ul>
+          </div>          <div class="flex-inline absolute bottom-safe left-safe z-20 barcode-animated-wrap">
+            <div class="case-overview__barcode" data-barcode-reveal>
+              <span class="case-overview__barcode-text font-mono text-xs uppercase dr-mb-8 block text-foreground/50" aria-hidden="true"><span class="case-overview__barcode-char" data-morph-char="W">W</span><span class="case-overview__barcode-char" data-morph-char="G">G</span><span class="case-overview__barcode-char" data-morph-char="M">M</span><span class="case-overview__barcode-char" data-morph-char="A">A</span><span class="case-overview__barcode-char" data-morph-char=")">)</span><span class="case-overview__barcode-char" data-morph-char=" "> </span><span class="case-overview__barcode-char" data-morph-char="V">V</span><span class="case-overview__barcode-char" data-morph-char="X">X</span><span class="case-overview__barcode-char" data-morph-char="Z">Z</span><span class="case-overview__barcode-char" data-morph-char="V">V</span><span class="case-overview__barcode-char" data-morph-char="D">D</span><span class="case-overview__barcode-char" data-morph-char="O">O</span><span class="case-overview__barcode-char" data-morph-char="R">R</span><span class="case-overview__barcode-char" data-morph-char="M">M</span><span class="case-overview__barcode-char" data-morph-char="_">_</span><span class="case-overview__barcode-char" data-morph-char="+">+</span></span>
+              <img src="img/barcode.png" alt="Barcode" role="img" width="120" height="36" loading="lazy" class="case-overview__barcode-img">
+            </div>
+          </div>        </section>
+                <section id="contact" class="relative contact-light contact-section">
+          <hr class="absolute bottom-0 left-0 right-0 h-px scale-x-0 bg-foreground/10 mx-safe transition-transform duration-1000 origin-left ease-in-cubic top-0">
+          <div class="contact-section-inner">
+            <!-- Code scrabble: 10 symbols, absolute left/right, smaller font -->
+            <div class="contact-code contact-code--left font-mono contact-code--small contact-muted contact-binary-scramble" aria-hidden="true">
+              <span class="contact-binary-inner"><span class="contact-binary-char" data-morph-char="J">J</span><span class="contact-binary-char" data-morph-char="J">J</span><span class="contact-binary-char" data-morph-char="i">i</span><span class="contact-binary-char" data-morph-char="+">+</span><span class="contact-binary-char" data-morph-char="f">f</span><span class="contact-binary-char" data-morph-char="I">I</span><span class="contact-binary-char" data-morph-char="Y">Y</span><span class="contact-binary-char" data-morph-char="X">X</span><span class="contact-binary-char" data-morph-char="V">V</span><span class="contact-binary-char" data-morph-char="k">k</span></span>
+            </div>
+            <div class="contact-code contact-code--right font-mono contact-code--small contact-muted contact-binary-scramble" aria-hidden="true">
+              <span class="contact-binary-inner"><span class="contact-binary-char" data-morph-char="J">J</span><span class="contact-binary-char" data-morph-char="J">J</span><span class="contact-binary-char" data-morph-char="i">i</span><span class="contact-binary-char" data-morph-char="+">+</span><span class="contact-binary-char" data-morph-char="f">f</span><span class="contact-binary-char" data-morph-char="I">I</span><span class="contact-binary-char" data-morph-char="Y">Y</span><span class="contact-binary-char" data-morph-char="X">X</span><span class="contact-binary-char" data-morph-char="V">V</span><span class="contact-binary-char" data-morph-char="k">k</span></span>
+            </div>
+            <!-- A in ATKStudio font, top left -->
+            <div id="cta-letter-a" class="font-pixel dr-text-100 dt:dr-text-200 dr-leading-100 dt:dr-leading-150 absolute left-0 top-[calc(var(--header-height)+32px)] dt:top-header-height p-safe uppercase z-10" aria-hidden="true"><span class="title-char-morph" data-morph-char="A">A</span></div>
+            <!-- E in ATKStudio font, bottom right -->
+            <div id="cta-letter-e" class="font-pixel dr-text-100 dt:dr-text-200 dr-leading-100 dt:dr-leading-150 absolute right-0 p-safe uppercase bottom-[32px] dt:bottom-0 z-10" aria-hidden="true"><span class="title-char-morph" data-morph-char="E">E</span></div>
+                        <nav class="contact-section-nav font-label text-xs contact-muted" aria-label="Page navigation">
+              <a href="index.html#hero" class="contact-section-nav__link"><span class="contact-section-nav__arrow" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M17 7h-6"/><path d="M17 7v6"/></svg></span> Home</a>
+              <a href="index.html#bio" class="contact-section-nav__link"><span class="contact-section-nav__arrow" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M17 7h-6"/><path d="M17 7v6"/></svg></span> About</a>
+              <a href="index.html#work" class="contact-section-nav__link"><span class="contact-section-nav__arrow" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M17 7h-6"/><path d="M17 7v6"/></svg></span> Work</a>
+              <a href="index.html#tech-stack" class="contact-section-nav__link"><span class="contact-section-nav__arrow" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M17 7h-6"/><path d="M17 7v6"/></svg></span> Tech</a>
+            </nav>
+            <div class="contact-section-center">
+                            <p class="text-2xl uppercase dt:text-[4vw] contact-muted mb-4 dt:mb-6" style="color: rgba(10,10,10,0.6);"><span class="font-pixel title-char-morph" data-morph-char="Le">Le</span>t&#039;s work together</p>
+                            <form class="contact-form w-full max-w-lg mx-auto mb-8 dt:mb-12" action="https://alexevans.io/send-contact.php" method="post" novalidate>
+                                <input type="hidden" name="lang" value="en">
+                <input type="hidden" name="utm_source" value="">
+                <input type="hidden" name="utm_medium" value="">
+                <input type="hidden" name="utm_campaign" value="">
+                <input type="hidden" name="utm_content" value="">
+                <input type="hidden" name="utm_term" value="">
+                <input type="hidden" name="landing_page" value="">
+                <input type="hidden" name="referrer" value="">
+                <div class="contact-form__row mb-5">
+                  <label for="contact-name" class="block font-label text-sm text-left mb-2 contact-muted">Name</label>
+                  <div class="contact-form__input-wrap">
+                    <input type="text" id="contact-name" name="name" class="contact-form__input w-full px-5 py-4 border border-neutral-300 bg-white text-neutral-900 font-label text-base focus:outline-none focus:border-neutral-600" value="" required autocomplete="name">
+                  </div>
+                </div>
+                <div class="contact-form__row mb-5">
+                  <label for="contact-email" class="block font-label text-sm text-left mb-2 contact-muted">Email</label>
+                  <div class="contact-form__input-wrap">
+                    <input type="email" id="contact-email" name="email" class="contact-form__input w-full px-5 py-4 border border-neutral-300 bg-white text-neutral-900 font-label text-base focus:outline-none focus:border-neutral-600" value="" required autocomplete="email">
+                  </div>
+                </div>
+                <div class="contact-form__row mb-6">
+                  <label for="contact-message" class="block font-label text-sm text-left mb-2 contact-muted">Message</label>
+                  <div class="contact-form__input-wrap">
+                    <textarea id="contact-message" name="message" rows="6" class="contact-form__input w-full px-5 py-4 border border-neutral-300 bg-white text-neutral-900 font-label text-base focus:outline-none focus:border-neutral-600 resize-y min-h-[160px]" required></textarea>
+                  </div>
+                </div>
+                <button type="submit" class="contact-form__submit group relative dr-py-8 dr-px-12 font-label text-base cursor-pointer flex items-center justify-center mx-auto uppercase text-lg border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white transition-colors duration-300">
+                  <span>Send message</span>
+                </button>
+              </form>
+                          </div>
+          </div>
+        </section>
+      </main>
+
+      <script>
+        document.documentElement.setAttribute('data-theme', 'light');
+      </script>
+    </div>
+  </div>
+  <script>
+    window.ALEX_ANALYTICS_CONFIG = {"gaMeasurementId":"G-ZQXG9CM5W3","enableGa4":true,"enableClarity":false,"clarityProjectId":""};
+  </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQXG9CM5W3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-ZQXG9CM5W3', {
+      anonymize_ip: true,
+      send_page_view: true
+    });
+  </script>
+      <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/site.js"></script>
+  <script>
+    (function () {
+      /* Skip smooth scroll on touch/mobile — prevents hero background zoom & jitter on iOS */
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+      if (typeof Lenis === 'undefined') return;
+      var lenis = new Lenis({
+        duration: 1.2,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true,
+      });
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+      } else {
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+      }
+    })();
+  </script>
+  <script>
+    (function () {
+      var hero = document.getElementById('hero');
+      var postHero = document.getElementById('post-hero');
+      var nav = document.getElementById('site-nav');
+      if (!nav) return;
+      var target = hero || postHero;
+      if (!target) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          nav.classList.toggle('nav-past-hero', !entry.isIntersecting);
+        });
+      }, { threshold: 0, rootMargin: '0px' });
+      observer.observe(target);
+    })();
+  </script>
+  <script>
+    (function () {
+      var SYMBOL_DURATION_MS = 120;
+      var MIN_INTERVAL_MS = 5000;
+      var MAX_INTERVAL_MS = 10000;
+      var MORPH_SYMBOLS = ['>', '&', '_', '[', ']', '∞'];
+      var spans = document.querySelectorAll('.title-char-morph[data-morph-char]');
+      if (!spans.length) return;
+      function randomDelay() { return MIN_INTERVAL_MS + Math.random() * (MAX_INTERVAL_MS - MIN_INTERVAL_MS); }
+      function runMorph(span) {
+        var char = span.getAttribute('data-morph-char');
+        if (!char) return;
+        span.classList.add('char-morph-active');
+        var step = 0;
+        function showNext() {
+          if (step < MORPH_SYMBOLS.length) {
+            span.textContent = MORPH_SYMBOLS[step];
+            step++;
+            setTimeout(showNext, SYMBOL_DURATION_MS);
+          } else {
+            span.classList.remove('char-morph-active');
+            span.textContent = char;
+            setTimeout(function () { runMorph(span); }, randomDelay());
+          }
+        }
+        showNext();
+      }
+      var heroFirstWordSpans = [];
+      document.querySelectorAll('#hero h2.font-hero-1').forEach(function (h2) {
+        var first = h2.querySelector('.title-char-morph[data-morph-char]');
+        if (first) heroFirstWordSpans.push(first);
+      });
+      heroFirstWordSpans.forEach(function (span) { runMorph(span); });
+      spans.forEach(function (span) {
+        if (heroFirstWordSpans.indexOf(span) === -1) {
+          setTimeout(function () { runMorph(span); }, randomDelay());
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var contactBinary = document.querySelectorAll('#contact .contact-binary-char');
+      if (!contactBinary.length) return;
+      var SYMBOL_DURATION_MS = 80;
+      var NUM_STEPS = 10;
+      var MIN_INTERVAL_MS = 2000;
+      var MAX_INTERVAL_MS = 6000;
+      var MORPH_SYMBOLS = ['>', '&', '_', '[', ']', '∞', '#', '@', '%', '*', '+', '=', '~', '|', '/', '\\', ':', ';', '<', '?', '!', '^', '(', ')', '.', ',', '-', '{', '}', '0', '1'];
+      function pickRandomSymbol() { return MORPH_SYMBOLS[Math.floor(Math.random() * MORPH_SYMBOLS.length)]; }
+      function randomDelay() { return MIN_INTERVAL_MS + Math.random() * (MAX_INTERVAL_MS - MIN_INTERVAL_MS); }
+      function runBinaryMorph(span) {
+        var char = span.getAttribute('data-morph-char');
+        if (!char) return;
+        span.classList.add('char-morph-active');
+        var step = 0;
+        function showNext() {
+          if (step < NUM_STEPS) {
+            span.textContent = pickRandomSymbol();
+            step++;
+            setTimeout(showNext, SYMBOL_DURATION_MS);
+          } else {
+            span.classList.remove('char-morph-active');
+            span.textContent = char;
+            setTimeout(function () { runBinaryMorph(span); }, randomDelay());
+          }
+        }
+        showNext();
+      }
+      contactBinary.forEach(function (span, i) {
+        setTimeout(function () { runBinaryMorph(span); }, Math.floor(Math.random() * 800));
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      /* Matrix rain overlay on hero — lightweight, single RAF loop */
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var c = document.getElementById('hero-matrix-canvas');
+      if (!c) return;
+      var hero = document.getElementById('hero');
+      var ctx = c.getContext('2d');
+      var items = [];
+      var itemId = 0;
+      var COL_SPACING = 38;
+      var MAX_ITEMS = 40;
+      var TRAIL = 0.08;
+      var ITEM_LIFE_FRAMES = 240;
+      var CYCLE_MS = 4000;
+      var ACTIVE_MS = 3000;
+      var CHARS = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+      function letter() { return CHARS[Math.floor(Math.random() * CHARS.length)]; }
+      function resize() {
+        var w = (hero && hero.offsetWidth) ? hero.offsetWidth : window.innerWidth;
+        var h = (hero && hero.offsetHeight) ? hero.offsetHeight : window.innerHeight;
+        if (c.width !== w || c.height !== h) {
+          c.width = w;
+          c.height = h;
+        }
+      }
+      function Item() {
+        this.x = rand(0, c.width);
+        this.y = 0;
+        this.vy = rand(8.4, 12.6);
+        this.life = 0;
+        this.max = ITEM_LIFE_FRAMES;
+        this.id = itemId++;
+        this.color = 'rgba(245, 245, 245, 0.3)';
+        items.push(this);
+      }
+      Item.prototype.draw = function () {
+        ctx.fillStyle = this.color;
+        ctx.fillText(letter(), this.x, this.y);
+        this.y += this.vy;
+        this.life++;
+        if (this.life >= this.max) {
+          var i = items.indexOf(this);
+          if (i > -1) items.splice(i, 1);
+        }
+      };
+      var total = Math.max(3, Math.floor(c.width / COL_SPACING));
+      var raf;
+      var isActive = false;
+      var cycleTimer;
+      function clearMatrix() {
+        ctx.clearRect(0, 0, c.width, c.height);
+      }
+      function stopMatrix() {
+        isActive = false;
+        if (raf) {
+          cancelAnimationFrame(raf);
+          raf = null;
+        }
+        items.length = 0;
+        clearMatrix();
+        cycleTimer = window.setTimeout(startMatrix, Math.max(0, CYCLE_MS - ACTIVE_MS));
+      }
+      function startMatrix() {
+        if (isActive) return;
+        isActive = true;
+        cycleTimer = window.setTimeout(stopMatrix, ACTIVE_MS);
+        resize();
+        raf = requestAnimationFrame(tick);
+      }
+      function tick() {
+        resize();
+        if (!isActive) return;
+        if (items.length < MAX_ITEMS) {
+          for (var i = 0; i < total; i++) {
+            if (items.length >= MAX_ITEMS) break;
+            if (Math.random() < 0.4) new Item();
+          }
+        }
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = 'rgba(0,0,0,' + TRAIL + ')';
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.font = '16px ui-monospace, monospace';
+        for (var j = items.length - 1; j >= 0; j--) items[j].draw();
+        raf = requestAnimationFrame(tick);
+      }
+      resize();
+      ctx.font = '16px ui-monospace, monospace';
+      startMatrix();
+      window.addEventListener('resize', resize);
+    })();
+  </script>
+  <script>
+    (function () {
+      var SYMBOL_DURATION_MS = 80;
+      var NUM_STEPS = 14;
+      var MORPH_SYMBOLS = ['>', '&', '_', '[', ']', '∞', '#', '@', '%', '*', '+', '=', '~', '|', '/', '\\', ':', ';', '<', '?', '!', '^', '(', ')', '.', ',', '-', '{', '}'];
+      var barcodeBlocks = document.querySelectorAll('[data-barcode-reveal]');
+      if (!barcodeBlocks.length) return;
+      function pickRandomSymbol() { return MORPH_SYMBOLS[Math.floor(Math.random() * MORPH_SYMBOLS.length)]; }
+      function runMorphOnce(span, done) {
+        var char = span.getAttribute('data-morph-char');
+        if (!char) { if (done) done(); return; }
+        var step = 0;
+        function showNext() {
+          if (step < NUM_STEPS) {
+            span.textContent = pickRandomSymbol();
+            step++;
+            setTimeout(showNext, SYMBOL_DURATION_MS);
+          } else {
+            span.textContent = char;
+            if (done) done();
+          }
+        }
+        showNext();
+      }
+      function runBarcodeReveal(block) {
+        var chars = block.querySelectorAll('.case-overview__barcode-char');
+        if (!chars.length) return;
+        chars.forEach(function (span, i) {
+          var delay = Math.floor(Math.random() * 50);
+          setTimeout(function () { runMorphOnce(span, null); }, delay);
+        });
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var block = entry.target;
+          observer.unobserve(block);
+          runBarcodeReveal(block);
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+      barcodeBlocks.forEach(function (block) { observer.observe(block); });
+    })();
+  </script>
+  </body>
+</html>

@@ -1,0 +1,1787 @@
+/* ==========================================================================
+   style.css — Combined stylesheet for alexevans.io
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   FONTS — Google Fonts (fallback when local fonts blocked by CORS/file://)
+   Source: font-override.css
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Title / pixel font: ATKStudio — /fonts/ATKStudio/ATKStudio.ttf (same-origin) */
+@font-face {
+  font-display: swap;
+  font-family: "ATKStudio";
+  font-style: normal;
+  font-weight: 100 900;
+  src: url("../fonts/ATKStudio/ATKStudio.ttf") format("truetype");
+}
+
+/* Fallback: use Outfit when custom fonts unavailable. Do not apply to .font-pixel
+   so that title first letters can use ATKStudio. */
+.font-neuemontreal {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-jetbrainsmono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   CSS CUSTOM PROPERTIES (Design tokens)
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+:root {
+  --bg: #0a0a0a;
+  --bg-elevated: #111;
+  --text: #fafafa;
+  --text-muted: #a1a1a1;
+  --accent: #fff;
+  --border: rgba(255, 255, 255, 0.08);
+  --font-sans: "Neue Montreal", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --novus-font-pixel: "ATKStudio", sans-serif;
+}
+
+
+/* --------------------------------------------------------------------------
+   LENIS — Smooth scroll (height/overflow behavior)
+   Source: Lq0zYG5a0DOr.css
+   -------------------------------------------------------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-behavior: allow-discrete;
+  transition-duration: 1ms;
+  transition-property: overflow;
+}
+
+
+/* --------------------------------------------------------------------------
+   BASE — Reset, box-sizing, scroll, body
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+
+/* --------------------------------------------------------------------------
+   CONOR MCGREGOR IMAGE TOOLTIP — Hover modal in bio (CI frame)
+   -------------------------------------------------------------------------- */
+.conor-tooltip-trigger {
+  position: relative;
+  outline: none;
+}
+
+.conor-tooltip-modal {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.75rem);
+  transform: translateX(-50%);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.conor-tooltip-trigger:hover .conor-tooltip-modal,
+.conor-tooltip-trigger:focus .conor-tooltip-modal {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.conor-tooltip-frame {
+  display: block;
+  padding: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  line-height: 0;
+}
+
+.conor-tooltip-frame img {
+  display: block;
+  max-width: min(320px, 85vw);
+  max-height: 50vh;
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+@media (hover: none) {
+  .conor-tooltip-trigger .conor-tooltip-modal {
+    display: none !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   SITE HEADER — Fixed top navigation
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem clamp(1.5rem, 5vw, 4rem);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header__logo {
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.site-header__logo:hover {
+  color: var(--accent);
+}
+
+.site-header__nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.site-header__nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.site-header__nav a:hover {
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   TYPOGRAPHY — Headings and reveal blocks
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.reveal-block {
+  overflow: hidden;
+}
+
+.reveal-block .line {
+  display: block;
+  transform: translateY(100%);
+}
+
+
+/* --------------------------------------------------------------------------
+   TITLE FIRST-LETTER MORPH — Letter animates to symbol and back (evans-style)
+   First letter(s) use ATKStudio (pixel) font — /fonts/ATKStudio.ttf
+   -------------------------------------------------------------------------- */
+.font-pixel {
+  font-family: var(--novus-font-pixel), "ATKStudio", sans-serif !important;
+}
+.title-char-morph {
+  display: inline-block;
+  font-family: var(--novus-font-pixel), "ATKStudio", sans-serif !important;
+  transition: opacity 0.15s ease, transform 0.15s ease, font-size 0.15s ease;
+}
+
+.title-char-morph.char-morph-active {
+  opacity: 0.7;
+  transform: scale(1.05);
+  font-size: calc(1em - 5px);
+}
+
+
+/* --------------------------------------------------------------------------
+   HERO — Main hero layout and splash
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+  position: relative;
+}
+
+.hero--splash {
+  padding-top: 6rem; /* space for fixed header */
+}
+
+.hero-splash {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 800px) {
+  .hero-splash {
+    grid-template-columns: minmax(280px, 1fr) 1fr;
+  }
+}
+
+.hero-splash__img {
+  position: relative;
+  aspect-ratio: 4/5;
+  max-height: 70vh;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: default;
+  --code-x: 50%;
+  --code-y: 50%;
+}
+
+.hero-splash__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-splash__code {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 1.15;
+  word-wrap: break-word;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  letter-spacing: 0.02em;
+  -webkit-mask-image: radial-gradient(
+    200px circle at var(--code-x) var(--code-y),
+    black 12%,
+    rgba(0, 0, 0, 0.35) 35%,
+    transparent 65%
+  );
+  mask-image: radial-gradient(
+    200px circle at var(--code-x) var(--code-y),
+    black 12%,
+    rgba(0, 0, 0, 0.35) 35%,
+    transparent 65%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.hero-splash__img:hover .hero-splash__code {
+  opacity: 1;
+}
+
+.hero__content {
+  order: -1;
+}
+
+@media (min-width: 800px) {
+  .hero__content {
+    order: 0;
+  }
+}
+
+.hero__label {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  line-height: 1.05;
+  margin-bottom: 0.25em;
+}
+
+.hero__title .line {
+  display: block;
+}
+
+.hero__block {
+  margin-bottom: 1.5rem;
+}
+
+.hero__block:last-of-type {
+  margin-bottom: 0;
+}
+
+.hero__meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   HERO #hero — Full-viewport hero + matrix code overlay
+   Source: hero-code.css
+   -------------------------------------------------------------------------- */
+#hero {
+  position: relative;
+  height: 100vh !important;
+  height: 100svh !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+}
+
+/* Hero background image: dedicated layer so it always loads first behind overlays. */
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-bg-image__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-code__layers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: auto;
+  overflow: hidden;
+  --code-x: 50%;
+  --code-y: 50%;
+  --hero-reveal-radius: 343px;
+}
+
+/* Spotlight: robot image revealed in same circle as matrix on mouseover only.
+   Never visible on load; JS attaches the already-preloaded robot image only
+   after the main hero image has finished loading. */
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+  -webkit-mask-image: radial-gradient(
+    var(--hero-reveal-radius) circle at var(--code-x) var(--code-y),
+    black 12%,
+    rgba(0, 0, 0, 0.35) 35%,
+    transparent 65%
+  );
+  mask-image: radial-gradient(
+    var(--hero-reveal-radius) circle at var(--code-x) var(--code-y),
+    black 12%,
+    rgba(0, 0, 0, 0.35) 35%,
+    transparent 65%
+  );
+}
+
+.hero-code__layers:hover .hero-spotlight {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0s;
+}
+
+/* Desktop: ignore :hover until first pointermove (cursor can sit over hero on reload). */
+.hero-code__layers.hero-hover-suppressed .hero-spotlight {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.hero-code__layers.hero-hover-suppressed .hero-code__code {
+  opacity: 0 !important;
+}
+
+.hero-code__code {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  height: auto;
+  font-family: ui-monospace, "JetBrains Mono", monospace;
+  font-size: 0.55rem;
+  line-height: 1.15;
+  word-wrap: break-word;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  letter-spacing: 0.02em;
+  z-index: 1;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(
+    var(--hero-reveal-radius) circle at var(--code-x) var(--code-y),
+    black 12%,
+    rgba(0, 0, 0, 0.35) 35%,
+    transparent 65%
+  );
+  mask-image: radial-gradient(
+    var(--hero-reveal-radius) circle at var(--code-x) var(--code-y),
+    black 12%,
+    rgba(0, 0, 0, 0.35) 35%,
+    transparent 65%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.hero-code__layers:hover .hero-code__code {
+  opacity: 1;
+}
+
+/* Overlay layer (no image; spotlight reveals overlay image on hover) */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   HERO — Desktop-only: spotlight + matrix code (hover interactions)
+   Disabled on mobile/touch; replaced by glitch flicker animation below.
+   -------------------------------------------------------------------------- */
+
+/* Restrict hover-reveal effects to devices with a fine pointer (mouse) */
+@media (hover: none), (pointer: coarse) {
+  .hero-code__layers {
+    pointer-events: none;
+  }
+  .hero-code__layers:hover .hero-spotlight,
+  .hero-code__layers:hover .hero-code__code {
+    opacity: 0 !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   HERO — Mobile glitch overlay
+   A robot image that flickers over the main hero in a glitch effect.
+   Controlled via JS (adds/removes .is-glitching class).
+   -------------------------------------------------------------------------- */
+
+/* Glitch keyframes — opacity-only flicker, no movement */
+@keyframes mob-glitch-flash {
+  0%   { opacity: 0; }
+  10%  { opacity: 0.85; }
+  20%  { opacity: 0; }
+  35%  { opacity: 0.9; }
+  50%  { opacity: 0; }
+  62%  { opacity: 0.8; }
+  75%  { opacity: 0.85; }
+  88%  { opacity: 0; }
+  94%  { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+
+/* Mobile/touch-only glitch overlay */
+.hero-mobile-glitch {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  /* Mobile/touch glitch overlay element */
+  .hero-mobile-glitch {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: 3;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .hero-mobile-glitch.is-glitching {
+    animation: mob-glitch-flash 5s ease forwards;
+  }
+
+}
+
+/* Matrix rain overlay — lightweight falling symbols over hero (all viewports) */
+#hero .hero-matrix-canvas {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   HERO MOUSEOVER / WEBGL — Canvas overlay and WebGL dice state
+   Source: hero-mouseover.css, hero-effects.css
+   -------------------------------------------------------------------------- */
+.hero-mouseover__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#hero > .hero-mouseover__canvas {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+#hero.hero--webgl-dice .hero-overlay {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   HERO & NAV — Inline overrides (white text on hero, nav when fixed)
+   Previously in index.html <style>
+   -------------------------------------------------------------------------- */
+#hero,
+#hero * {
+  color: #fff !important;
+}
+
+#hero a {
+  color: #fff !important;
+}
+
+#hero svg {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+
+main > nav.fixed,
+main > nav.fixed * {
+  color: #fff !important;
+}
+
+main > nav.fixed a {
+  color: #fff !important;
+}
+
+main > nav.fixed svg {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+
+/* Schedule a call — swap corner frame: white (light) on hero, dark when nav is white (past hero) */
+.schedule-call-corners {
+  transition: opacity 0.25s ease;
+}
+#site-nav.nav-past-hero .schedule-call-corners--light {
+  opacity: 0;
+  pointer-events: none;
+}
+#site-nav.nav-past-hero .schedule-call-corners--dark {
+  opacity: 1;
+}
+#site-nav.nav-past-hero [data-gsap="navigation-schedule-call"] a {
+  color: #171717 !important;
+  transition: color 0.25s ease;
+}
+
+/* Industry News link: visible only on mobile (desktop uses desktop-only block) */
+.site-nav-industry-mobile {
+  display: none !important;
+}
+@media (max-width: 799px) {
+  .site-nav-industry-mobile {
+    display: flex !important;
+  }
+  #site-nav.nav-past-hero .site-nav-industry-mobile a {
+    color: rgb(115 115 115);
+  }
+  #site-nav.nav-past-hero .site-nav-industry-mobile a:hover {
+    color: #171717;
+  }
+}
+
+/* Nav mobile: min height and CTA touch target (44px) */
+#site-nav {
+  min-height: 44px;
+}
+#site-nav [data-gsap="navigation-schedule-call"] a {
+  min-height: 44px;
+  align-items: center;
+  display: inline-flex;
+}
+.site-nav-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  width: 100%;
+}
+.site-language-switcher {
+  position: relative;
+  border: none;
+  outline: none;
+}
+.site-language-switcher__summary {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  color: inherit;
+  transition: color 0.25s ease;
+}
+.site-language-switcher__summary:focus,
+.site-language-switcher__summary:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.site-language-switcher__summary::-webkit-details-marker {
+  display: none;
+}
+.site-language-switcher__summary:hover,
+.site-language-switcher[open] .site-language-switcher__summary {
+  background: transparent;
+}
+.site-language-switcher__chevron {
+  transition: transform 0.2s ease;
+}
+.site-language-switcher[open] .site-language-switcher__chevron {
+  transform: rotate(180deg);
+}
+.site-language-switcher__menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 100%;
+  margin-top: -20px;
+  padding-top: 0;
+  border: none;
+  background: transparent;
+}
+.site-language-switcher__link {
+  display: block;
+  padding: 0.80rem;
+  font-size: calc(1em - 2px);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+.site-language-switcher__link:hover,
+.site-language-switcher__link:focus-visible {
+  background: transparent;
+  outline: none;
+}
+#site-nav.nav-past-hero .site-language-switcher__summary {
+  background: transparent;
+  color: #171717 !important;
+}
+#site-nav.nav-past-hero .site-language-switcher__summary:hover,
+#site-nav.nav-past-hero .site-language-switcher[open] .site-language-switcher__summary {
+  background: transparent;
+}
+#site-nav.nav-past-hero .site-language-switcher__menu {
+  border: none;
+  background: transparent;
+  color: #171717 !important;
+}
+#site-nav.nav-past-hero .site-language-switcher__link:hover,
+#site-nav.nav-past-hero .site-language-switcher__link:focus-visible {
+  background: rgba(23, 23, 23, 0.06);
+}
+@media (max-width: 799px) {
+  .nav-mobile-links {
+    display: flex !important;
+  }
+  .nav-mobile-links a {
+    min-height: 44px;
+    align-items: center;
+    display: inline-flex;
+  }
+  .site-nav-actions {
+    gap: 0.5rem;
+  }
+  .site-language-switcher__summary {
+    padding-inline: 0.65rem;
+  }
+}
+@media (min-width: 800px) {
+  .nav-mobile-links {
+    display: none !important;
+  }
+}
+
+/* Hero typography: mobile gets readable size; desktop keeps 4.5vw */
+@media (max-width: 799px) {
+  #hero h2.font-hero-1 {
+    font-size: clamp(1.8rem, 7.5vw, 3rem);
+  }
+  [data-gsap="hero-line-2"] {
+    display: none;
+  }
+  #hero .hero-title-block {
+    max-width: 48%;
+  }
+}
+@media (min-width: 800px) {
+  #hero h2.font-hero-1 {
+    font-size: 4.5vw;
+  }
+}
+
+#hero .hero-title-engineer-line {
+  letter-spacing: 0.08em;
+}
+
+/* Hero left/right title blocks: fade up on load (0.2s delay), works with or without .hero-title-block */
+#hero .flex.flex-col.items-center.justify-center > div {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: hero-title-fade-up 0.5s ease-out 0.2s both;
+}
+@keyframes hero-title-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SECTIONS — Common section layout
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+section {
+  margin: 0 auto;
+  scroll-margin-top: 4rem;
+}
+
+@media (max-width: 799px) {
+  #bio .col-span-6.flex.flex-col {
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+}
+
+@media (max-width: 799px) {
+  [data-gsap="tech-stack-list"] li {
+    font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+  }
+  [data-gsap="tech-stack-item"] .opacity-0 {
+    opacity: 0.4;
+  }
+}
+
+.section__number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.section__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 2rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   ABOUT
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.about__text {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  color: var(--text-muted);
+  max-width: 60ch;
+  line-height: 1.7;
+}
+
+.about__text p {
+  margin: 0 0 1rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   WORK — Horizontal scroll cards
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.work-pin-wrap {
+  overflow: hidden;
+}
+
+.work-horizontal {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 0;
+  will-change: transform;
+}
+
+.work-card {
+  flex: 0 0 min(85vw, 420px);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  min-height: 280px;
+}
+
+.work-card__year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.work-card__title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.work-card__desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Work section: grey background, dark fonts and icons */
+#work {
+  --work-bg: #fafafa;
+  --work-fg: #171717;
+  --work-muted: rgba(0, 0, 0, 0.55);
+  --work-border: rgba(0, 0, 0, 0.2);
+  background-color: var(--work-bg);
+  color: var(--work-fg);
+  --color-foreground: var(--work-fg);
+}
+#work .text-foreground\/50,
+#work [class*="text-foreground/50"] {
+  color: var(--work-muted) !important;
+}
+#work .text-foreground\/80,
+#work [class*="text-foreground/80"] {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+#work hr,
+#work [data-line],
+#work .border-foreground\/30 {
+  border-color: var(--work-border) !important;
+}
+#work .group .bg-foreground.mix-blend-exclusion {
+  background: rgba(0, 0, 0, 0.06) !important;
+  mix-blend-mode: normal;
+}
+
+/* Work section image overlay: covers image initially, GSAP wipes it away on scroll */
+#work [data-gsap="image-overlay"] {
+  background-color: var(--work-bg, #fafafa) !important;
+  pointer-events: none;
+}
+
+/* View case cursor-following square — tracks mouse within linked work cards */
+/* Position, scale and opacity are driven entirely by JS (no CSS transitions here) */
+.work-view-case {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 82px;
+  height: 82px;
+  background: #fff;
+  color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* Work section: responsive card grid */
+.work-section-header {
+  position: relative;
+}
+.work-cards-grid-wrap {
+  margin-bottom: 3rem;
+}
+@media (min-width: 1024px) {
+  .work-cards-grid-wrap {
+    margin-bottom: 5rem;
+  }
+}
+.work-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 800px) {
+  .work-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .work-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+.work-card-slide {
+  /* individual card — no fixed widths needed in grid */
+}
+
+/* Thin dark border on every work card frame (grey section) */
+#work .work-card-frame,
+#work .ai-demo-wrapper.work-card-frame {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+/* Work card frames: square aspect ratio; on mobile cap height and use 4/3 */
+.work-card-frame {
+  aspect-ratio: 1;
+  height: auto;
+}
+@media (max-width: 799px) {
+  .work-card-frame {
+    aspect-ratio: 4/3;
+    max-height: 65vw;
+  }
+}
+
+.songtuna-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Work timeline list — grey section: dark fonts, lines, symbols */
+.work-timeline-list {
+  list-style: none;
+  background-color: var(--work-bg, #fafafa);
+  --color-foreground: var(--work-fg, #171717);
+  color: var(--work-fg, #171717);
+  padding-left: var(--px-safe, 1rem);
+  padding-right: var(--px-safe, 1rem);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.work-timeline-list .text-foreground\\/50,
+.work-timeline-list [class*="text-foreground/50"] {
+  color: var(--work-muted, rgba(0, 0, 0, 0.55)) !important;
+}
+.work-timeline-list .text-foreground\\/80,
+.work-timeline-list [class*="text-foreground/80"] {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+.work-timeline-list .dt\\:text-xl span,
+.work-timeline-list .dt\:col-span-3 span {
+  color: var(--work-fg, #171717);
+}
+.work-timeline-list hr,
+.work-timeline-list [data-line] {
+  border-color: var(--work-border, rgba(0, 0, 0, 0.2)) !important;
+}
+.work-timeline-list a {
+  color: inherit;
+}
+
+@media (max-width: 799px) {
+  .work-timeline-list a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+  }
+  .work-timeline-list a > [class*="col-start-4"] {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .work-timeline-list a > span,
+  .work-timeline-list a > div {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .work-timeline-list a > [data-cta] {
+    flex: 0 0 auto;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  .work-timeline-list a,
+  .work-timeline-list li {
+    overflow-x: hidden;
+  }
+}
+
+/* 2023 items hover: subtle dark overlay instead of mix-blend-exclusion */
+.work-timeline-list .group .bg-foreground.mix-blend-exclusion {
+  background: rgba(0, 0, 0, 0.06) !important;
+  mix-blend-mode: normal;
+}
+
+/* Work timeline: 2024 block — grey section (dark text/lines) */
+.work-timeline-2024-block {
+  list-style: none;
+}
+.work-timeline-2024 {
+  --work-2024-bg: var(--work-bg, #fafafa);
+  --work-2024-fg: var(--work-fg, #171717);
+  --work-2024-muted: var(--work-muted, rgba(0, 0, 0, 0.55));
+  --work-2024-border: var(--work-border, rgba(0, 0, 0, 0.2));
+  --color-foreground: var(--work-2024-fg);
+  background-color: var(--work-2024-bg);
+  color: var(--work-2024-fg);
+  margin-left: calc(-1 * var(--px-safe, 1rem));
+  margin-right: calc(-1 * var(--px-safe, 1rem));
+  padding-left: var(--px-safe, 1rem);
+  padding-right: var(--px-safe, 1rem);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.work-timeline-2024 .text-foreground\\/50,
+.work-timeline-2024 [class*="text-foreground/50"] {
+  color: var(--work-2024-muted) !important;
+}
+.work-timeline-2024 .text-foreground\\/80,
+.work-timeline-2024 [class*="text-foreground/80"] {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+.work-timeline-2024 .dt\\:text-xl span,
+.work-timeline-2024 .dt\:col-span-3 span {
+  color: var(--work-2024-fg);
+}
+.work-timeline-2024 hr,
+.work-timeline-2024 [data-line] {
+  border-color: var(--work-2024-border) !important;
+}
+.work-timeline-2024-hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+.work-timeline-2024 a {
+  color: inherit;
+}
+
+
+/* --------------------------------------------------------------------------
+   EXPERIENCE LIST
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.exp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.exp-item {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.exp-item__period {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.exp-item__role {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.exp-item__company {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.exp-item__desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 55ch;
+}
+
+
+/* --------------------------------------------------------------------------
+   TECH STACK
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tech-item {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+}
+
+
+/* --------------------------------------------------------------------------
+   SCROLL BLUR BOTTOM — Liquid glass at viewport bottom.
+   Only visible after hero (JS: .is-past-hero); hidden at footer (JS: .is-hidden).
+   Soft gradient both ends, no hard line.
+   -------------------------------------------------------------------------- */
+#scroll-blur-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  pointer-events: none;
+  z-index: 40;
+  /* Blur in bottom 50% of strip: transparent top half, then fade in and out at bottom */
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    rgba(10, 10, 10, 0.12) 72%,
+    rgba(10, 10, 10, 0.26) 88%,
+    transparent 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  /* Reveal only bottom 50% of element (effect at bottom of screen) */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 50%, black 72%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, transparent 50%, black 72%, black 90%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#scroll-blur-bottom.is-past-hero {
+  opacity: 1;
+}
+
+#scroll-blur-bottom.is-past-hero.is-hidden {
+  opacity: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.footer {
+  padding: 3rem clamp(1.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer__links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer__links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding-block: 0.625rem;
+}
+
+.footer__links a:hover {
+  color: var(--text);
+}
+
+.footer__copy {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+
+/* --------------------------------------------------------------------------
+   REVEAL / GSAP — Animated reveal elements and split lines
+   Source: evans.css
+   -------------------------------------------------------------------------- */
+.reveal-el {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.split-lines .line {
+  overflow: hidden;
+}
+
+.split-lines .line-inner {
+  display: inline-block;
+  transform: translateY(100%);
+}
+
+
+/* --------------------------------------------------------------------------
+   LAZY-LOAD / IMAGE CONTAINER — Loading, error, spinner
+   Source: rN40A4uqZdB5.css
+   -------------------------------------------------------------------------- */
+._container_18jfo_1 {
+  background: transparent;
+  contain: layout paint size;
+  content-visibility: auto;
+  overflow: hidden;
+  position: inherit;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+._container_18jfo_1._ready_18jfo_15 {
+  background: transparent;
+}
+
+._container_18jfo_1._error_18jfo_19 {
+  background: #ef44441a;
+}
+
+._container_18jfo_1._lazy-load_18jfo_23 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+._container_18jfo_1._lazy-load_18jfo_23._loaded_18jfo_31 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+._loadingOverlay_18jfo_36 {
+  align-items: center;
+  backdrop-filter: blur(2px);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+  z-index: 10;
+}
+
+._loadingSpinner_18jfo_47 {
+  animation: _spin_18jfo_1 1s linear infinite;
+  border: 2px solid rgba(156, 163, 175, 0.3);
+  border-radius: 50%;
+  border-top-color: #9ca3afcc;
+  height: 24px;
+  width: 24px;
+}
+
+._loadingText_18jfo_56 {
+  color: #4b5563cc;
+  font-size: 0.875rem;
+  margin-left: 8px;
+}
+
+._errorOverlay_18jfo_62 {
+  align-items: center;
+  backdrop-filter: blur(2px);
+  background: #fef1f1e6;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+  z-index: 10;
+}
+
+._errorText_18jfo_73 {
+  color: #dc2626cc;
+  font-size: 0.875rem;
+  max-width: 80%;
+  padding: 16px;
+  text-align: center;
+}
+
+@keyframes _spin_18jfo_1 {
+  0% {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (max-width: 799.98px) {
+  ._errorText_18jfo_73,
+  ._loadingText_18jfo_56 {
+    font-size: 0.75rem;
+  }
+
+  ._loadingSpinner_18jfo_47 {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+@media (prefers-contrast: high) {
+  ._loadingOverlay_18jfo_36 {
+    background: #000000e6;
+  }
+
+  ._errorOverlay_18jfo_62 {
+    background: #dc2626e6;
+  }
+
+  ._errorText_18jfo_73,
+  ._loadingText_18jfo_56 {
+    color: #ffffffe6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._loadingSpinner_18jfo_47 {
+    animation: none;
+  }
+
+  ._container_18jfo_1._lazy-load_18jfo_23 {
+    transition: none;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   EXPERIENCE SECTION — Light grey background with dark elements
+   -------------------------------------------------------------------------- */
+#experience {
+  background-color: #ededed;
+  --color-foreground: oklch(14.96% 0 0);
+  --color-background: #ededed;
+  --color-contrast: oklch(14.96% 0 0);
+}
+
+/* --------------------------------------------------------------------------
+   TECH STACK SECTION — Light mode: white background, dark fonts, lines, icons
+   -------------------------------------------------------------------------- */
+#tech-stack {
+  margin: 0;
+  background-color: #ffffff;
+  color: #0a0a0a;
+  --color-foreground: oklch(14.96% 0 0);
+  --color-background: #ffffff;
+  --color-contrast: oklch(14.96% 0 0);
+}
+#tech-stack .font-heading-2,
+#tech-stack .font-heading-1 {
+  color: #0a0a0a;
+}
+/* Tech Stack section: titles twice as large */
+#tech-stack .font-heading-2 {
+  font-size: 1.8em;
+}
+#tech-stack [data-gsap="tech-stack-list"] li {
+  font-size: 1.8em;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+/* More space between tech stack list items (titles) */
+#tech-stack [data-gsap="tech-stack-list"] {
+  gap: 0.5rem;
+}
+#tech-stack [class*="text-foreground"] {
+  color: rgba(10, 10, 10, 0.5);
+}
+#tech-stack hr {
+  background-color: rgba(10, 10, 10, 0.1);
+}
+#tech-stack .font-mono {
+  color: rgba(10, 10, 10, 0.5);
+}
+/* Tech stack: hover ">" prompt — smooth opacity transition (override duration-0) */
+#tech-stack .group span.font-pixel {
+  transition: opacity 0.3s ease;
+}
+/* Tech stack: list item hover — slight slide and emphasis */
+#tech-stack [data-gsap="tech-stack-item"] {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+#tech-stack .group:hover [data-gsap="tech-stack-item"] {
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   CONTACT SECTION — Light background CTA with dark text (Let's Work Together)
+   -------------------------------------------------------------------------- */
+.contact-light {
+  background-color: #f5f5f5;
+  color: #0a0a0a;
+  --color-foreground: oklch(14.96% 0 0);
+  --color-background: #f5f5f5;
+}
+
+#contact {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Ensure contact section always has full viewport height and visible content */
+.contact-section {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.contact-section-inner {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-section-center {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 10;
+  padding-left: var(--px-safe, 1rem);
+  padding-right: var(--px-safe, 1rem);
+  box-sizing: border-box;
+}
+
+.contact-light .contact-muted {
+  color: rgba(10, 10, 10, 0.45);
+}
+
+/* Large corner letters — slow, continuous idle morph */
+#cta-letter-a,
+#cta-letter-e {
+  color: #0a0a0a;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: opacity, transform;
+}
+
+#cta-letter-a.char-morph-active,
+#cta-letter-e.char-morph-active {
+  opacity: 0.55;
+  transform: scale(1.03);
+}
+
+/* Contact A/E on mobile: top-left and bottom-right corners only, do not cover form */
+@media (max-width: 799px) {
+  #cta-letter-a {
+    top: calc(var(--header-height, 60px) + 12px) !important;
+    left: 0;
+    right: auto;
+    bottom: auto;
+    font-size: clamp(2.5rem, 14vw, 4rem);
+    line-height: 1;
+    max-width: 22vw;
+    pointer-events: none;
+  }
+  #cta-letter-e {
+    top: auto;
+    left: auto;
+    right: 0;
+    bottom: 12px !important;
+    font-size: clamp(2.5rem, 14vw, 4rem);
+    line-height: 1;
+    max-width: 22vw;
+    pointer-events: none;
+  }
+  .contact-section-center {
+    padding-left: max(var(--px-safe, 1rem), 14vw);
+    padding-right: max(var(--px-safe, 1rem), 14vw);
+  }
+  .contact-rights {
+    position: static;
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
+
+/* Contact: vertical binary numbers (animated scroll) */
+.contact-binary {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+  overflow: hidden;
+  max-height: 100%;
+  letter-spacing: 0.2em;
+}
+.contact-binary--left {
+  left: 0;
+  padding-left: var(--px-safe, 1rem);
+}
+.contact-binary--right {
+  right: 0;
+  padding-right: var(--px-safe, 1rem);
+}
+/* Contact code scrabble — 10 symbols, absolute position so animation never affects layout */
+.contact-code {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  letter-spacing: 0.12em;
+  color: rgba(10, 10, 10, 0.5);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  max-width: 1.5rem;
+  height: 100vh;
+  height: 100svh;
+  pointer-events: none;
+}
+.contact-code--small {
+  font-size: 0.65rem;
+}
+.contact-code--left {
+  left: 0;
+  padding-left: var(--px-safe, 1rem);
+}
+.contact-code--right {
+  left: auto;
+  right: 0;
+  padding-right: var(--px-safe, 1rem);
+}
+.contact-code .contact-binary-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  letter-spacing: inherit;
+}
+.contact-binary-inner {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+.contact-binary-char {
+  display: block;
+  transition: opacity 0.15s ease;
+}
+.contact-binary-char.char-morph-active {
+  opacity: 0.7;
+}
+
+/* Contact form — larger fields for better UX */
+#contact .contact-form {
+  width: 100%;
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+#contact .contact-form__input {
+  border-radius: 4px;
+  color: #0a0a0a;
+  background-color: #fff;
+  border: 1px solid #d4d4d4;
+  font-size: 1rem;
+  min-height: 2.75rem;
+}
+#contact .contact-form__input::placeholder {
+  color: rgba(10, 10, 10, 0.45);
+}
+#contact .contact-form textarea.contact-form__input {
+  min-height: 160px;
+}
+#contact .contact-form__input:focus {
+  box-shadow: 0 0 0 1px currentColor;
+  outline: none;
+}
+#contact .contact-form__submit {
+  min-height: 44px;
+  border-radius: 2px;
+  color: #0a0a0a;
+  border: 1px solid #0a0a0a;
+}
+
+/* Corner bracket decorations on form field wrappers */
+.contact-form__input-wrap {
+  position: relative;
+}
+.contact-form__input-wrap::before,
+.contact-form__input-wrap::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  z-index: 1;
+  pointer-events: none;
+  border-color: rgba(10, 10, 10, 0.35);
+  border-style: solid;
+}
+.contact-form__input-wrap::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+.contact-form__input-wrap::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+#contact .contact-section-center p,
+#contact .contact-section-center h2 {
+  color: #0a0a0a;
+}
+#contact .contact-section-center .contact-muted {
+  color: rgba(10, 10, 10, 0.6);
+}
+
+/* Contact success: black celebratory emoji */
+.contact-success-emoji {
+  display: block;
+  filter: brightness(0);
+  line-height: 1;
+}
+
+/* Contact success: smaller, well-formatted thank you message */
+.contact-success-message {
+  letter-spacing: 0.02em;
+}
+
+/* Contact section: page links (Home, About, Work, Tech) top right of form */
+.contact-section-nav {
+  position: absolute;
+  top: calc(var(--header-height, 60px) + 1.5rem);
+  right: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding-right: var(--px-safe, 1rem);
+}
+.contact-section-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(10, 10, 10, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.contact-section-nav__link:hover {
+  color: #0a0a0a;
+}
+.contact-section-nav__arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.contact-section-nav__arrow svg {
+  display: block;
+}
+
+

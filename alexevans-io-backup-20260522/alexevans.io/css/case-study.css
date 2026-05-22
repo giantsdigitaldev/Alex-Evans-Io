@@ -1,0 +1,993 @@
+/* ==========================================================================
+   Case study page (/songtuna) — Rovu-style, light mode, full-screen
+   Bright background, dark fonts and symbols. Layout follows alexevans.io work case studies.
+   ========================================================================== */
+
+.page-case-study {
+  background: #F9F9F9;
+  color: #171717;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Override style.css body so all text is dark on case study pages */
+.page-case-study body {
+  background: #F9F9F9 !important;
+  color: #171717 !important;
+}
+
+.page-case-study .case-page-main,
+.page-case-study .case-page-article {
+  color: #171717;
+}
+
+/* Subtle noise texture (hero-style) */
+.page-case-study::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.page-case-study * {
+  box-sizing: border-box;
+}
+
+/* Full-screen content: responsive padding; top padding clears fixed nav */
+.case-page-main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding-top: calc(clamp(3rem, 8vw, 4.5rem) + clamp(0.75rem, 2.5vw, 1.25rem) * 2);
+  overflow-x: hidden;
+}
+
+.case-page-article {
+  max-width: 1200px;
+  margin: 0 auto;
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   Unified site nav — Same nav as index.html on all sub pages (e.g. songtuna)
+   Fixed bar: brand left ("> Alex Evans" + Design Engineer), CTA right with frame
+   -------------------------------------------------------------------------- */
+.site-nav-unified,
+.page-case-study #site-nav.site-nav-unified {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(0.75rem, 2.5vw, 1.25rem) clamp(1.25rem, 5vw, 4rem);
+  background: rgba(248, 248, 248, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-family: var(--font-sans);
+}
+
+.site-nav-unified.nav-past-hero,
+.page-case-study #site-nav {
+  background: rgba(255, 255, 255, 0.98);
+  color: #171717;
+}
+
+/* Ensure nav matches reference: name/role/prompt light gray, CTA light gray */
+.page-case-study #site-nav .site-nav-unified__prompt,
+.page-case-study #site-nav .site-nav-unified__name {
+  color: #888888 !important;
+}
+.page-case-study #site-nav .site-nav-unified__name:hover {
+  color: #333333 !important;
+}
+.page-case-study #site-nav .site-nav-unified__role {
+  color: #888888 !important;
+}
+.page-case-study #site-nav .site-nav-unified__cta-text,
+.page-case-study #site-nav .site-nav-unified__cta {
+  color: #888888 !important;
+}
+.page-case-study #site-nav .site-nav-unified__cta:hover {
+  color: #171717 !important;
+}
+.page-case-study #site-nav .site-nav-unified__cta-corner {
+  color: rgba(0, 0, 0, 0.35);
+}
+.page-case-study #site-nav .site-nav-unified__cta:hover .site-nav-unified__cta-corner {
+  color: #171717;
+}
+
+.site-nav-unified__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.site-nav-unified__line {
+  display: block;
+}
+
+.site-nav-unified__prompt,
+.site-nav-unified__name {
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+  font-weight: 400;
+  color: #171717;
+  letter-spacing: -0.02em;
+}
+
+.site-nav-unified__name {
+  text-decoration: none;
+  transition: color 0.2s;
+  margin-left: 0.2rem;
+}
+
+.site-nav-unified__name:hover {
+  color: #333;
+}
+
+.site-nav-unified__role {
+  font-size: 0.75rem;
+  color: #737373;
+  margin-left: 0.4rem;
+}
+
+.site-nav-unified__cta-wrap {
+  flex-shrink: 0;
+}
+
+.site-nav-unified__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+  font-weight: 400;
+  color: #171717;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.site-nav-unified__cta:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.45);
+}
+
+.site-nav-unified__cta-corner {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  color: rgba(0, 0, 0, 0.35);
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.site-nav-unified__cta:hover .site-nav-unified__cta-corner {
+  color: #171717;
+  opacity: 1;
+}
+
+.site-nav-unified__cta-corner--tl { top: -0.5px; left: -0.5px; }
+.site-nav-unified__cta-corner--tr { top: -0.5px; right: -0.5px; }
+.site-nav-unified__cta-corner--bl { bottom: -0.5px; left: -0.5px; }
+.site-nav-unified__cta-corner--br { bottom: -0.5px; right: -0.5px; }
+
+.site-nav-unified__cta-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero — Image-style: two-column (title left, description right), metadata below */
+.page-case-study .case-hero {
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  padding-bottom: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.page-case-study .case-hero--project .case-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+@media (max-width: 768px) {
+  .page-case-study .case-hero--project .case-hero__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+  }
+  .page-case-study .case-hero__tagline {
+    max-width: none;
+  }
+}
+
+.page-case-study .case-hero__title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 12vw, 5.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 0;
+  color: #000000;
+}
+
+.page-case-study .case-hero__title .title-char-morph {
+  display: inline-block;
+}
+
+.page-case-study .case-hero__tagline {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.65;
+  color: #333333;
+  margin: 0;
+  max-width: 42ch;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .page-case-study .case-hero__tagline {
+    max-width: none;
+  }
+}
+
+/* Metadata grid — responsive: 4 columns → 2 → 1 */
+.page-case-study .case-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 3vw, 2rem) clamp(1.5rem, 4vw, 2.5rem);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .page-case-study .case-meta {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .page-case-study .case-meta {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.page-case-study .case-meta__row {
+  margin: 0;
+}
+
+.page-case-study .case-meta__label {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #888888;
+  margin: 0 0 0.35rem;
+}
+
+.page-case-study .case-meta__value {
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  font-weight: 400;
+  color: #333333;
+  margin: 0;
+}
+
+.page-case-study .case-meta__value a {
+  color: #333333;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.page-case-study .case-meta__value a:hover {
+  color: #000000;
+}
+
+/* Hero: metadata at bottom, gradient bar at very bottom (image 1 style) */
+.page-case-study .case-hero--project {
+  position: relative;
+}
+
+.page-case-study .case-meta--bottom {
+  margin-top: auto;
+}
+
+/* First image — full-width gradient band + white card overlay (Rovu-style) */
+.page-case-study .case-hero-image {
+  width: 100%;
+  margin: clamp(2rem, 6vw, 4rem) 0 0;
+  padding: clamp(1.5rem, 5vw, 3rem) 0 clamp(3rem, 10vw, 5rem);
+  background: linear-gradient(90deg, #22d3ee 0%, #a78bfa 45%, #fb923c 100%);
+  background-size: cover;
+  position: relative;
+}
+
+.page-case-study .case-hero-image__card {
+  width: 100%;
+  max-width: min(1100px, calc(100vw - 2 * clamp(1.25rem, 5vw, 4rem)));
+  margin: 0 auto;
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 12px 24px -8px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.page-case-study .case-hero-image__card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .page-case-study .case-hero-image {
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+    padding-left: clamp(1rem, 4vw, 1.5rem);
+    padding-right: clamp(1rem, 4vw, 1.5rem);
+  }
+  .page-case-study .case-hero-image__card {
+    max-width: 100%;
+  }
+}
+
+/* Horizontal rule — Rovu-style thin divider */
+.page-case-study .case-hr {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+  border: none;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Sections — no top padding, tighter bottom */
+.page-case-study .case-section {
+  padding-top: 0;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.page-case-study .case-section__title {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+  margin: 0 0 1rem;
+}
+
+.page-case-study .case-section__subtitle {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: #555;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.page-case-study .case-section__lead {
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.7;
+  color: #1a1a1a;
+  margin: 0 0 1rem;
+  max-width: 65ch;
+}
+
+.page-case-study .case-section__lead strong {
+  color: #1a1a1a;
+}
+
+.page-case-study .case-section__lead em {
+  font-style: italic;
+  color: #1a1a1a;
+}
+
+/* Quote — Rovu-style blockquote */
+.page-case-study .case-quote {
+  margin: 1rem 0;
+}
+
+.page-case-study .case-quote blockquote {
+  font-size: clamp(1rem, 1.8vw, 1.1rem);
+  line-height: 1.6;
+  color: #1a1a1a;
+  margin: 0;
+  font-style: italic;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+/* Key metrics list — value + label like Rovu */
+.page-case-study .case-metrics-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.page-case-study .case-metrics-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35em 0.5em;
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  color: #1a1a1a;
+}
+
+.page-case-study .case-metrics-list__value {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.page-case-study .case-metrics-list__label {
+  color: #1a1a1a;
+  opacity: 0.9;
+}
+
+/* Detail list — h5 title + description (Rovu key decisions / key research style) */
+.page-case-study .case-detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.page-case-study .case-detail-list li {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.page-case-study .case-detail-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.page-case-study .case-detail-list__title {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1a1a1a;
+  margin: 0 0 0.25rem;
+}
+
+.page-case-study .case-detail-list__desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1a1a1a;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.page-case-study .case-detail-list__desc em {
+  font-style: italic;
+}
+
+/* Figure / image — full width within column, less space */
+.page-case-study .case-figure {
+  margin: clamp(0.5rem, 1.5vw, 1rem) 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.page-case-study .case-figure__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* Page footer — Rovu-style: pattern, copy, CTA */
+.case-page-footer {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+}
+
+.page-case-study .case-page-footer__pattern {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #1a1a1a;
+  opacity: 0.5;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.page-case-study .case-page-footer__copy {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0;
+}
+
+.page-case-study .case-cta {
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  padding: 0.35em 0.6em;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.page-case-study .case-cta:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Shared footer on light case study pages */
+.page-case-study .footer {
+  background: #F9F9F9;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.page-case-study .footer__links a {
+  color: rgba(23, 23, 23, 0.5);
+}
+
+.page-case-study .footer__links a:hover {
+  color: #171717;
+}
+
+.page-case-study .footer__copy {
+  color: rgba(23, 23, 23, 0.4);
+}
+
+/* Responsive: tighten padding on very small screens */
+@media (max-width: 600px) {
+  .case-page-main {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .site-nav-unified,
+  .page-case-study #site-nav.site-nav-unified {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+/* Responsive: ensure all text remains visible and readable */
+@media (max-width: 768px) {
+  .page-case-study .case-hero__title {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+    word-wrap: break-word;
+  }
+  .page-case-study .case-section__title {
+    font-size: clamp(1.15rem, 4vw, 1.35rem);
+  }
+  .page-case-study .case-section__lead {
+    max-width: none;
+  }
+}
+
+/* cristOS: App Store coming soon popup */
+.cristos-app-modal .cristos-app-modal__panel {
+  max-width: 420px;
+  max-height: 90vh;
+  margin: auto;
+}
+
+.cristos-app-modal__inner {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.cristos-app-modal__title {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 1rem;
+  color: #1a1a1a;
+}
+
+.cristos-app-modal__message {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 0 1rem;
+}
+
+.cristos-app-modal__link-note {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+}
+
+.cristos-app-modal__link-note a {
+  color: #1a1a1a;
+  text-decoration: underline;
+}
+
+.cristos-app-modal__link-note a:hover {
+  color: #333;
+}
+
+/* Finger KI Wiki / cristOS: full-screen layout — content uses full viewport width */
+.page-finger-ki-wiki,
+.page-cristos {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.page-finger-ki-wiki .case-page-main,
+.page-cristos .case-page-main {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.page-finger-ki-wiki .case-page-article,
+.page-cristos .case-page-article {
+  max-width: none;
+  width: 100%;
+}
+
+/* Same horizontal padding on title section and sections so they align (flush) */
+.page-finger-ki-wiki .case-hero,
+.page-cristos .case-hero {
+  padding-left: clamp(1.5rem, 6vw, 4rem);
+  padding-right: clamp(1.5rem, 6vw, 4rem);
+}
+
+.page-finger-ki-wiki .case-section,
+.page-cristos .case-section {
+  padding-left: clamp(1.5rem, 6vw, 4rem);
+  padding-right: clamp(1.5rem, 6vw, 4rem);
+}
+
+.page-finger-ki-wiki .case-figure__img,
+.page-cristos .case-figure__img {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Section 2 (Overview): first image on top, full-width, less space */
+.page-case-study .case-section--overview .case-section__hero-image {
+  width: 100%;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  overflow: hidden;
+}
+
+.page-case-study .case-section--overview .case-section__hero-image .case-figure__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.page-finger-ki-wiki .case-section--overview .case-section__hero-image,
+.page-cristos .case-section--overview .case-section__hero-image {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Problem section: same as Overview — hero image on top, then two-column layout */
+.page-case-study .case-section--problem .case-section__hero-image {
+  width: 100%;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  overflow: hidden;
+}
+
+.page-case-study .case-section--problem .case-section__hero-image .case-figure__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.page-finger-ki-wiki .case-section--problem .case-section__hero-image,
+.page-cristos .case-section--problem .case-section__hero-image {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Context & Research section: same layout as Overview and Problem */
+.page-case-study .case-section--context-research .case-section__hero-image {
+  width: 100%;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  overflow: hidden;
+}
+
+.page-case-study .case-section--context-research .case-section__hero-image .case-figure__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.page-finger-ki-wiki .case-section--context-research .case-section__hero-image,
+.page-cristos .case-section--context-research .case-section__hero-image {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Solution section: same layout as Overview and Problem */
+.page-case-study .case-section--solution .case-section__hero-image {
+  width: 100%;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  overflow: hidden;
+}
+
+.page-case-study .case-section--solution .case-section__hero-image .case-figure__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.page-finger-ki-wiki .case-section--solution .case-section__hero-image,
+.page-cristos .case-section--solution .case-section__hero-image {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Overview: two-column — left = title + barcode, right = content (image 2 style) */
+.page-case-study .case-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  align-items: start;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+@media (max-width: 768px) {
+  .page-case-study .case-overview-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.page-case-study .case-overview__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-case-study .case-section__title--overview {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.25rem;
+}
+
+.page-case-study .case-overview__barcode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.page-case-study .case-overview__barcode-text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: #555;
+}
+
+/* Barcode code-flipper: characters cycle through symbols then land on code; no size change */
+.page-case-study .case-overview__barcode-char {
+  display: inline-block;
+}
+
+.page-case-study .case-overview__barcode-img {
+  max-width: 140px;
+  height: auto;
+  max-height: 32px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+.page-case-study .case-overview__right .case-section__lead {
+  margin-bottom: 1rem;
+}
+
+.page-case-study .case-overview__right .case-section__subtitle {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-case-study .case-section__subtitle--metrics {
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: #555;
+  margin: 0 0 1rem;
+}
+
+/* Key metrics — large animated numbers (image 2 style) */
+.page-case-study .case-metrics-list--key {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  margin-top: 0;
+}
+
+.page-case-study .case-metrics-list--key li {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25em;
+  margin-bottom: 0;
+}
+
+.page-case-study .case-metrics-list--key .case-metrics-list__value {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.page-case-study .case-metrics-list--key .case-metrics-list__label {
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+/* Platform Modules slider */
+.modules-slider-wrap {
+  margin: 0.75rem 0 1.25rem;
+  /* Prevent slider from causing horizontal page overflow */
+  overflow: hidden;
+  width: 100%;
+}
+
+.modules-slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.modules-slider-header__title {
+  margin: 0;
+}
+
+.modules-slider-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.modules-slider-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  color: #1a1a1a;
+  padding: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.modules-slider-btn:hover {
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.modules-slider-btn__corner {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  color: rgba(0, 0, 0, 0.25);
+  transition: color 0.2s;
+}
+
+.modules-slider-btn:hover .modules-slider-btn__corner {
+  color: #1a1a1a;
+}
+
+.modules-slider-btn__corner--tl { top: -1px; left: -1px; }
+.modules-slider-btn__corner--tr { top: -1px; right: -1px; }
+.modules-slider-btn__corner--bl { bottom: -1px; left: -1px; }
+.modules-slider-btn__corner--br { bottom: -1px; right: -1px; }
+
+.modules-slider-track-wrap {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+.modules-slider-track {
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0 0 0.5rem;
+  margin: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modules-slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.module-card {
+  flex: 0 0 clamp(220px, 30%, 280px);
+  scroll-snap-align: start;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: relative;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+/* Mobile: constrain card width so slider stays inside the viewport */
+@media (max-width: 600px) {
+  .module-card {
+    flex: 0 0 min(260px, 78vw);
+  }
+}
+
+.module-card:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+.module-card__icon {
+  display: flex;
+  align-items: center;
+  color: #1a1a1a;
+  opacity: 0.6;
+  margin-bottom: 0.15rem;
+}
+
+.module-card__title {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.module-card__desc {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #555;
+  margin: 0;
+}
+
+/* Animated metrics block */
+.page-case-study .case-metrics-animated {
+  margin: clamp(0.5rem, 1.5vw, 1rem) 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.page-case-study .case-metrics-animated--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-case-study .case-metrics-list--animated .case-metrics-list__value {
+  font-variant-numeric: tabular-nums;
+  min-width: 2.5ch;
+}

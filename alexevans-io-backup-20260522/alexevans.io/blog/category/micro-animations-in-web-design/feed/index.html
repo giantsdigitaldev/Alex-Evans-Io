@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Micro animations in web design &#8211; Alex Evans Blog</title>
+	<atom:link href="https://alexevans.io/blog/category/micro-animations-in-web-design/feed/" rel="self" type="application/rss+xml" />
+	<link>https://alexevans.io/blog</link>
+	<description></description>
+	<lastBuildDate>Tue, 10 Mar 2026 15:30:01 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9.4</generator>
+	<item>
+		<title>Micro animations in web design</title>
+		<link>https://alexevans.io/blog/micro-animations-in-web-design-2/</link>
+					<comments>https://alexevans.io/blog/micro-animations-in-web-design-2/#respond</comments>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate></pubDate>
+				<category><![CDATA[Micro animations in web design]]></category>
+		<guid isPermaLink="false">https://alexevans.io/blog/?p=26</guid>
+
+					<description><![CDATA[Explore Micro animations in web design. Practical guide for founders and teams.]]></description>
+										<content:encoded><![CDATA[<h1>Micro Animations in Web Design</h1>
+<h2>Introduction</h2>
+<p>There is a version of micro animations that is pure decoration. A button that wiggles. A loader that spins in four colors. A hover state that triggers a full CSS fireworks display. None of that is what we are talking about here.</p>
+<p>Micro animations in web design are small, purposeful motion events tied to user interaction or state change. A checkbox that confirms selection. A CTA button that subtly shifts on hover to signal clickability. A form field that shakes when validation fails instead of silently doing nothing. A navigation item that underlines with a quick draw effect rather than snapping.</p>
+<p>These are not features. They are feedback mechanisms. And the difference between a site that feels premium and one that feels flat often comes down to whether those feedback mechanisms exist at all.</p>
+<p>I have built and shipped enough products to know where polish tends to get cut. It gets cut in sprint planning when the animation feels optional. It gets cut in the handoff when the developer does not get a spec. It gets cut when the founder says &#8220;we&#8217;ll add that later&#8221; and later never comes. But here is the thing: micro animations are not expensive to implement correctly. They are expensive to ignore, because your users feel their absence even when they cannot name it.</p>
+<p>This post is a practical look at micro animations in web design — what they are, where they pay off, how to implement them without bloat, and how to know when you have gone too far.</p>
+<hr />
+<h2>Why This Matters Now</h2>
+<p>The baseline for web design quality has shifted. A few years ago, a clean layout with consistent typography and responsive behavior was enough to feel professional. Now users arrive at your site having interacted with Stripe, Linear, Vercel, Notion, and a dozen other products that treat motion as part of the interface contract. The bar is higher — not because motion is trendy, but because these products have trained users to expect feedback.</p>
+<p>When your site does not respond to interaction, it reads as unfinished. Not necessarily broken. Just incomplete. The cognitive weight of that gap falls on the user, and users do not sit there diagnosing the problem. They feel friction and leave.</p>
+<p>There is a commercial argument here too. Conversion-focused web design for premium service brands — which is most of what I build — lives or dies on trust signals. Trust is communicated through a stack of inputs: copy, credibility, visual consistency, load speed, and interaction quality. Micro animations contribute to that last category. A form that responds fluidly when you focus an input field, a success state that confirms submission with a brief animation, a progress indicator that keeps you oriented — these reduce uncertainty and move users forward.</p>
+<p>That said, there is an anti-pattern worth naming. Motion for its own sake corrodes trust just as fast as motion&#8217;s absence. If every element bounces in on scroll, your site starts to feel like a product demo rather than a tool. The goal is not to impress. The goal is to reduce friction and increase confidence.</p>
+<p>The underlying shift here is that web design has become interface design. Static pages served most sites for a decade because most sites were publishing vehicles. Now your website is often the first functional interaction someone has with your business. It needs to behave like a product, not a brochure. Micro animations are part of that behavior layer.</p>
+<hr />
+<h2>Key Considerations</h2>
+<h3>Define the job before you add motion</h3>
+<p>Every micro animation should answer a question: what does the user need to know right now? That question filters most bad animation decisions before they ship.</p>
+<p>Common jobs micro animations do well:</p>
+<ul>
+<li><strong>State confirmation</strong> — Did my click register? The button depressing on press, the icon switching states, the label updating. Without this, users click twice and assume the system is slow.</li>
+<li><strong>Navigation orientation</strong> — Where am I? Animated transitions between pages or sections reduce the jarring blank-state experience and help users build a mental map of the site.</li>
+<li><strong>Error and validation feedback</strong> — Did I get it wrong? A field that shakes on invalid input is faster to process than a red border and a text block below the form.</li>
+<li><strong>Loading and progress</strong> — How long is this going to take? Skeleton screens and progress indicators keep users anchored rather than staring at a white rectangle.</li>
+<li><strong>Hierarchy and sequence</strong> — What should I look at first? Staggered entrance animations on a pricing section, for example, can guide attention in a way that static layout alone cannot.</li>
+</ul>
+<p>If the animation does not serve one of these jobs, question whether it belongs.</p>
+<h3>Performance is non-negotiable</h3>
+<p>Poorly implemented animations kill performance. Animating properties that trigger layout recalculation — <code>width</code>, <code>height</code>, <code>top</code>, <code>left</code>, <code>margin</code> — forces the browser to repaint on every frame. On mobile or lower-end hardware, that becomes visible jank, and jank destroys the premium feel you were trying to create.</p>
+<p>The rule is simple: animate <code>transform</code> and <code>opacity</code>. These are composited by the GPU and do not trigger layout or paint operations. Almost every useful micro animation can be expressed through some combination of translate, scale, rotate, and opacity changes.</p>
+<pre><code class="language-css">/* Avoid — triggers layout recalculation */
+.button:hover {
+  width: 110%;
+  margin-left: -5%;
+}
+
+/* Prefer — GPU-composited, no layout cost */
+.button:hover {
+  transform: scaleX(1.05);
+}
+</code></pre>
+<p>Keep durations short. Micro animations live in the 100–300ms range. Below 100ms and the change is invisible. Above 300ms and it starts to feel like the interface is moving through syrup. Most interaction feedback sits around 150–200ms. Page transitions and entrance animations can stretch to 300–400ms, but they should be earning that time.</p>
+<p>Use <code>prefers-reduced-motion</code>. Some users have vestibular disorders or simply turn off animations at the OS level. Your site should respect that.</p>
+<pre><code class="language-css">@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</code></pre>
+<p>This is not optional. It is a basic accessibility requirement and it protects users who will have a genuinely bad experience otherwise.</p>
+<h3>Easing communicates character</h3>
+<p>The easing curve of an animation is where personality lives. Easing is the acceleration profile — how the element starts, moves, and stops.</p>
+<p>Linear easing feels mechanical. Ease-in feels like a car starting up and never stopping. Ease-out feels natural because objects in the real world decelerate before they stop. Ease-in-out is the most common default for transitions within a page.</p>
+<p>For interactive elements — buttons, toggles, form states — a custom cubic-bezier that slightly overshoots and corrects (<code>spring</code>-style easing) communicates responsiveness and life without being excessive. Libraries like Framer Motion and GSAP expose this kind of easing with minimal code. For CSS-only implementations, <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code> gives a subtle overshoot that works well on small interactive elements.</p>
+<h3>When to use a library versus CSS</h3>
+<p>For most micro animations, native CSS transitions and <code>@keyframes</code> are sufficient. They require no dependencies, load instantly, and handle the majority of use cases:</p>
+<ul>
+<li>Hover states</li>
+<li>Focus states</li>
+<li>Toggle transitions (open/close, show/hide)</li>
+<li>Simple entrance animations on scroll with <code>IntersectionObserver</code></li>
+</ul>
+<p>Where a library earns its overhead:</p>
+<ul>
+<li>Complex sequenced animations (a staggered list, a multi-step onboarding flow)</li>
+<li>Physics-based motion (spring animations, drag-and-drop feedback)</li>
+<li>Scroll-linked animations tied to scroll position rather than scroll events</li>
+<li>Shared layout animations in React (Framer Motion&#8217;s <code>layoutId</code> is hard to replicate natively)</li>
+</ul>
+<p>For most startup websites and conversion-focused landing pages, CSS handles 80–90% of what you need. Reach for a library when the interaction complexity genuinely requires it, not because the library has a good demo.</p>
+<h3>Audit what you already have</h3>
+<p>Most sites I audit at <a href="https://alexevans.io/">alexevans.io</a> fall into one of two failure modes: no meaningful motion at all, or motion that was added component by component with no coherent system. The result of the second is a site where some things animate slowly, some quickly, some with ease-in-out, some linear, some delayed, some instant. It reads as noise.</p>
+<p>The fix is a motion token system — a small set of defined values that everything inherits from:</p>
+<pre><code class="language-css">:root {
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-base: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+</code></pre>
+<p>Every animation in the codebase references these tokens. When you want to adjust the pacing globally, you change the token. When a new component is built, the developer defaults to these values rather than inventing new ones. Consistency is the whole point — a coherent motion system feels designed; arbitrary durations feel accidental.</p>
+<hr />
+<h2>Next Steps</h2>
+<p>If you are looking at your current site and thinking it could benefit from a motion layer, here is a practical sequence:</p>
+<p><strong>Audit first.</strong> Go through every interactive element: buttons, links, forms, modals, nav items, toggles. Note which ones have no feedback on interaction. These are your highest-priority targets.</p>
+<p><strong>Establish your motion tokens.</strong> Define three or four duration values and two or three easing curves. Put them in CSS custom properties or your design system&#8217;s token file. From this point, nothing gets a one-off <code>transition: all 0.3s ease</code>.</p>
+<p><strong>Start with hover and focus states.</strong> These are the lowest-effort, highest-impact changes. A button that responds to hover with a <code>transform: translateY(-2px)</code> and a shadow shift communicates interactivity immediately.</p>
+<p><strong>Add entrance animations conservatively.</strong> Scroll-triggered entrance animations are effective on feature sections and pricing tables where you want to guide attention. Add <code>IntersectionObserver</code> logic and trigger a simple <code>opacity</code> + <code>translateY</code> transition. Keep the delay stagger short — 50–75ms between elements is enough.</p>
+<p><strong>Test on mobile and with reduced motion enabled.</strong> Many animations that look refined on a desktop at full speed become distracting on mobile. Check every animated component in both contexts before shipping.</p>
+<p><strong>If the complexity exceeds CSS,</strong> that is the moment to evaluate Framer Motion (if you are on React) or GSAP (if you need precise sequencing or scroll-linked work). Not before.</p>
+<p>For teams building conversion-focused web design who want motion that feels intentional rather than decorative, this sequence gets you most of the way there without a major refactor. If you are starting from scratch or need a design system that includes motion as a first-class citizen, that is something we can build properly from the ground up. <a href="https://alexevans.io/#contact">Reach out here</a> if that is where you are.</p>
+<hr />
+<h2>Conclusion</h2>
+<p>Micro animations in web design are not a finishing touch. They are part of the functional layer of your interface — the set of signals that tell users their actions are registered, their errors are visible, and the system is working. Done well, they are invisible in the best possible way. Users do not notice them; they just feel more confident and encounter less friction.</p>
+<p>The failure mode is not usually bad animation. It is no animation, or inconsistent animation, or motion that was added without a system behind it. Fix those and you have already closed a gap that most sites leave open.</p>
+<p>Most websites do not need more visual complexity. They need feedback mechanisms that work, pacing that feels deliberate, and motion tokens that keep everything coherent over time. That is the craft, and it compounds — every time someone interacts with a site that responds well, you build a little more trust.</p>
+<hr />
+<p>Your site should earn its keep. <a href="https://alexevans.io/#contact">Request an AI and website teardown</a> — no pitch, just a clear view of what&#8217;s working and what isn&#8217;t.</p>
+<hr />
+]]></content:encoded>
+					
+					<wfw:commentRss>https://alexevans.io/blog/micro-animations-in-web-design-2/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Micro animations in web design</title>
+		<link>https://alexevans.io/blog/micro-animations-in-web-design/</link>
+					<comments>https://alexevans.io/blog/micro-animations-in-web-design/#respond</comments>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate></pubDate>
+				<category><![CDATA[Micro animations in web design]]></category>
+		<guid isPermaLink="false">https://alexevans.io/blog/?p=23</guid>
+
+					<description><![CDATA[Explore Micro animations in web design. Practical guide for founders and teams.]]></description>
+										<content:encoded><![CDATA[<h1>Micro Animations in Web Design</h1>
+<h2>Introduction</h2>
+<p>Most people notice when a website feels good. Almost nobody can explain why.</p>
+<p>That feeling—that sense of polish, of a site that responds to you rather than just presenting to you—is usually the result of micro animations done right. Not flashy transitions for their own sake. Not loading screens that make you wait longer than the content itself. The small, purposeful movements that signal a button has registered your click, confirm a form field is valid, or guide your eye from headline to CTA without you ever consciously deciding to follow.</p>
+<p>Micro animations in web design are the operational layer beneath the visual layer. They carry information. They reduce uncertainty. They make the difference between a site that feels built and one that feels assembled.</p>
+<p>This post covers what they are, why they are gaining traction right now, what to actually consider before adding them, and how to implement them without slowing down your site or irritating your users.</p>
+<hr />
+<h2>Why This Matters Now</h2>
+<p>For years, micro animations were a nice-to-have. The tools were fragmented, browser support was inconsistent, and most development teams treated them as a finishing touch that got cut when the timeline compressed.</p>
+<p>Three things have changed.</p>
+<p><strong>Browser support matured.</strong> The Web Animations API, CSS custom properties, and the <code>@keyframes</code> system are now reliable across modern browsers. You can build responsive, GPU-accelerated animations without reaching for a JavaScript library for every interaction. What used to require GreenSock or Framer Motion for basic tasks is often achievable in native CSS today.</p>
+<p><strong>Performance tooling improved.</strong> Google&#8217;s Core Web Vitals made animation performance a ranking and conversion concern, not just a design concern. Cumulative Layout Shift (CLS) and Interaction to Next Paint (INP) are both directly impacted by how animations are implemented. This pushed teams to get deliberate. You cannot just slap a transition on everything and call it done.</p>
+<p><strong>Users&#8217; baselines rose.</strong> Consumer apps—primarily mobile—trained users to expect feedback from every interaction. A button that does not respond visually feels broken. A form that submits without any acknowledgment feels like data disappeared into a void. The expectation of responsiveness is now table stakes.</p>
+<p>For founder-led businesses and premium service brands, this creates an opportunity. Most sites in the mid-market—agencies, consultancies, SaaS tools below the enterprise tier—still ship static interfaces with no interactive feedback layer. The gap between what users expect and what most sites deliver is real, and the cost of closing that gap is lower than most teams assume.</p>
+<hr />
+<h2>Key Considerations</h2>
+<p>Getting micro animations right means thinking about four things: purpose, performance, accessibility, and implementation depth.</p>
+<h3>Define the job before you add the motion</h3>
+<p>Every animation should answer a question a user is asking implicitly. That question is usually one of three things:</p>
+<ol>
+<li><strong>Did that work?</strong> — Confirmation feedback after a form submit, a button press, a toggle flip.</li>
+<li><strong>Where did that go?</strong> — Spatial continuity when elements appear, disappear, or transition between states.</li>
+<li><strong>What should I look at next?</strong> — Attention direction, usually through entrance animations or subtle emphasis.</li>
+</ol>
+<p>If an animation does not answer one of those questions, it is decoration. Decoration is not inherently wrong, but it comes at a cost—load time, cognitive load, motion sensitivity risk—and decoration does not justify cost the way functional motion does.</p>
+<p>Before opening your CSS file, write one line about what the animation communicates. If you cannot, do not add it yet.</p>
+<h3>Duration and easing are not aesthetic choices</h3>
+<p>They are communication choices.</p>
+<p>Interactions that confirm user action (button press, checkbox toggle) should animate between 80ms and 150ms. Anything shorter feels like a glitch. Anything longer feels like lag.</p>
+<p>State transitions—a modal opening, a card expanding—sit between 200ms and 350ms. Long enough to orient the user, short enough not to make them wait.</p>
+<p>Page-level transitions, if you use them, are 300ms to 500ms maximum. Beyond that, you are adding friction to navigation and users will start avoiding internal links.</p>
+<p>For easing: <code>ease-out</code> for elements entering the screen (starts fast, decelerates—feels natural, like something arriving). <code>ease-in</code> for elements leaving (starts slow, accelerates—like something departing). <code>ease-in-out</code> for in-place state changes. Linear easing almost always feels mechanical and cheap; reserve it for progress bars and spinners where a constant rate is the accurate metaphor.</p>
+<pre><code class="language-css">/* Entrance — ease-out */
+.card-enter {
+  animation: slideUp 280ms ease-out both;
+}
+
+/* Departure — ease-in */
+.modal-exit {
+  animation: fadeOut 200ms ease-in forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</code></pre>
+<p>Small numbers. Precise easing. Do not guess—test them in the browser and time them against your own reaction.</p>
+<h3>Performance: only animate what the GPU can handle</h3>
+<p>This is where most teams get into trouble. CSS transitions on <code>width</code>, <code>height</code>, <code>top</code>, <code>left</code>, <code>margin</code>, or <code>padding</code> trigger layout recalculations. Layout recalculations on every animation frame means jank. Jank tanks INP scores and user trust simultaneously.</p>
+<p>Stick to <code>transform</code> and <code>opacity</code>. These properties run on the compositor thread, which means they do not block the main thread and do not cause repaints.</p>
+<pre><code class="language-css">/* This causes layout thrash — avoid */
+.bad-transition {
+  transition: height 300ms ease-out;
+}
+
+/* This is GPU-composited — prefer this */
+.good-transition {
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
+}
+</code></pre>
+<p>If you need to animate height—say, an accordion expanding—consider <code>max-height</code> with a known ceiling value, or the emerging <code>calc-size()</code> approach for modern browsers. Neither is perfect; both are better than animating <code>height</code> directly.</p>
+<p>Also: use <code>will-change: transform</code> sparingly. It promotes an element to its own compositor layer, which is useful for heavy animations but is a memory cost on mobile. Add it dynamically via JavaScript before an animation starts, remove it after.</p>
+<h3>Accessibility: respect <code>prefers-reduced-motion</code></h3>
+<p>This is non-negotiable. A meaningful percentage of users have vestibular disorders, motion sensitivity, or just strong preferences around animation. Operating systems and browsers expose the <code>prefers-reduced-motion</code> media query. Your CSS should respond to it.</p>
+<pre><code class="language-css">@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</code></pre>
+<p>The aggressive wildcard approach above is a safe baseline. For more surgical control, scope it to specific components and decide whether to replace the animation with an instant state change or a cross-fade (which is generally tolerable even for motion-sensitive users).</p>
+<p>The principle is simple: motion should never be the only way information is communicated, and users who opt out of motion should not lose functionality.</p>
+<h3>Implementation depth: where to start</h3>
+<p>If you are working in a standard front-end stack, here is the sequence that makes sense:</p>
+<p><strong>Hover and focus states first.</strong> Buttons, links, input fields. These are low-effort, high-return, and they address the most common interaction points. A <code>transition: background-color 150ms ease-out, box-shadow 150ms ease-out</code> on every interactive element is an afternoon of work that meaningfully changes how the site feels.</p>
+<p><strong>Form feedback second.</strong> Validation states, success confirmations, error shakes. These are where users are most anxious—they have given you data and they want to know it arrived. A subtle <code>✓</code> icon that fades in on valid input, a red border that appears with a 3px horizontal shake on invalid input—these are small, fast to build, and remove real friction.</p>
+<p><strong>Entrance animations third.</strong> Sections or cards that animate in as the user scrolls can guide attention and add depth. Reach for the Intersection Observer API for scroll-triggered animations rather than scroll event listeners. It is performant, clean, and supports lazy loading patterns naturally.</p>
+<pre><code class="language-js">const observer = new IntersectionObserver(
+  (entries) =&gt; {
+    entries.forEach((entry) =&gt; {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+document.querySelectorAll('.animate-on-scroll').forEach((el) =&gt; {
+  observer.observe(el);
+});
+</code></pre>
+<p><strong>Loading and transition states last.</strong> Skeleton loaders, page transitions, complex component choreography. These take more engineering time and have more ways to go wrong. Get the foundational layer solid before going here.</p>
+<h3>A note on conversion-focused design</h3>
+<p>Micro animations are not just a UX nicety for high-traffic consumer products. For premium service brands and founder-led businesses—the kind of site where one new client represents meaningful revenue—the interactive layer is part of the trust signal.</p>
+<p>A service page that has no feedback on hover, no confirmation on form submit, and no visual hierarchy guidance reads as unfinished. Not broken. Just unfinished. And unfinished does not convert at premium rates.</p>
+<p>If your site is meant to position you at the top of your market, it needs to behave like it is at the top of your market. That includes motion.</p>
+<hr />
+<h2>Next Steps</h2>
+<p>Here is how to move on this without overbuilding:</p>
+<p><strong>Audit what you have.</strong> Open your site in Chrome DevTools, throttle to a mid-tier mobile connection, and record a user session or walkthrough. Watch for: hover states that offer no feedback, form submissions with no confirmation, content that loads without any entrance context. These are the gaps.</p>
+<p><strong>Prioritize by interaction frequency.</strong> Your primary CTA button gets attention before your about page scroll animation. The 80/20 holds here—most users will interact with a handful of components. Make those components excellent before decorating everything else.</p>
+<p><strong>Test on real devices.</strong> Animations that look smooth at 60fps on a developer laptop can drop to 20fps on a three-year-old Android phone. Test early. Fix performance issues at the component level before shipping.</p>
+<p><strong>Use a design system token for duration and easing.</strong> If you are working with a team or a codebase that will grow, define your timing and easing values as CSS custom properties:</p>
+<pre><code class="language-css">:root {
+  --duration-fast: 120ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
+</code></pre>
+<p>Consistency across a site is what separates a design system from a collection of one-off CSS tricks.</p>
+<p>If you are building or rebuilding a site and want this layer built in from the start—rather than retrofitted later—that is worth thinking through at the architecture stage. The decisions made in a <a href="https://alexevans.io/#contact">web design engagement</a> around component structure and interaction states have downstream consequences for how easy or hard it is to animate intelligently.</p>
+<hr />
+<h2>Conclusion</h2>
+<p>Micro animations in web design are not a trend. They are the functional feedback layer that every interactive interface needs. Done right, they reduce user anxiety, guide attention, confirm actions, and signal craft. Done wrong—or done absent—they leave users with an interface that works on paper and feels flat in practice.</p>
+<p>The implementation cost is lower than most teams think. The performance cost of doing it wrong is higher than most teams realize. Start with hover states and form feedback, respect <code>prefers-reduced-motion</code>, keep your durations short, and only animate <code>transform</code> and <code>opacity</code> unless you have a specific reason to do otherwise.</p>
+<p>One principle worth carrying: a site should respond to users the way a good conversation responds to questions. Promptly. Clearly. Without unnecessary drama.</p>
+<hr />
+<p>Your site should earn its keep. <a href="https://alexevans.io/#contact">Request an AI and website teardown</a>—no pitch, just a clear view of what&#8217;s working and what isn&#8217;t.</p>
+<hr />
+]]></content:encoded>
+					
+					<wfw:commentRss>https://alexevans.io/blog/micro-animations-in-web-design/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

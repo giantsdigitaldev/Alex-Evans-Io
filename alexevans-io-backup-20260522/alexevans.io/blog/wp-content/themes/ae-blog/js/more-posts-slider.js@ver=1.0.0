@@ -1,0 +1,56 @@
+(function () {
+  'use strict';
+
+  var section = document.querySelector('.ae-more-posts');
+  if (!section) return;
+
+  var filterBtns = section.querySelectorAll('.ae-more-posts__filter-btn');
+  var panes = section.querySelectorAll('.ae-more-posts__pane');
+  var dots = section.querySelectorAll('.ae-more-posts__dot');
+
+  function setSort(sort) {
+    filterBtns.forEach(function (btn) {
+      var isActive = btn.getAttribute('data-sort') === sort;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-selected', isActive);
+    });
+    panes.forEach(function (pane) {
+      pane.hidden = pane.getAttribute('data-sort') !== sort;
+    });
+    setSlide(0);
+  }
+
+  function setSlide(index) {
+    var activePane = section.querySelector('.ae-more-posts__pane:not([hidden])');
+    if (!activePane) return;
+    var slides = activePane.querySelectorAll('.ae-more-posts__slide');
+    if (!slides.length) return;
+    index = Math.min(index, slides.length - 1);
+    slides.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === index);
+    });
+    dots.forEach(function (dot, i) {
+      dot.classList.toggle('is-active', i === index);
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+    });
+  }
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setSort(btn.getAttribute('data-sort'));
+    });
+  });
+
+  dots.forEach(function (dot, i) {
+    dot.addEventListener('click', function () {
+      setSlide(i);
+    });
+  });
+
+  // Ensure first pane has first slide active on load
+  var firstPane = section.querySelector('.ae-more-posts__pane[data-sort="newest"]');
+  if (firstPane) {
+    var firstSlide = firstPane.querySelector('.ae-more-posts__slide');
+    if (firstSlide) firstSlide.classList.add('is-active');
+  }
+})();

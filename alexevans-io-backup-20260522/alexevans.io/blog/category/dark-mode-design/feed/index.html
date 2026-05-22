@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Dark Mode Design &#8211; Alex Evans Blog</title>
+	<atom:link href="https://alexevans.io/blog/category/dark-mode-design/feed/" rel="self" type="application/rss+xml" />
+	<link>https://alexevans.io/blog</link>
+	<description></description>
+	<lastBuildDate>Sat, 14 Mar 2026 03:31:19 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9.4</generator>
+	<item>
+		<title>Dark mode implementations</title>
+		<link>https://alexevans.io/blog/dark-mode-implementations/</link>
+					<comments>https://alexevans.io/blog/dark-mode-implementations/#respond</comments>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate></pubDate>
+				<category><![CDATA[Dark Mode Design]]></category>
+		<category><![CDATA[UI/UX Design]]></category>
+		<category><![CDATA[Web Design]]></category>
+		<guid isPermaLink="false">https://alexevans.io/blog/?p=38</guid>
+
+					<description><![CDATA[Dark mode implementations: practical guide for founders and teams. What to do first and what to skip.]]></description>
+										<content:encoded><![CDATA[<h1>Dark Mode Implementations</h1>
+<h2>Introduction</h2>
+<p>Dark mode looks simple until you&#8217;re three hours deep in a z-index issue, a mismatched SVG, and a modal rendering white-on-white. A toggle, a color switch, done—that&#8217;s what most developers assume going in.</p>
+<p>This guide isn&#8217;t about whether dark mode looks cool. It does. It&#8217;s about building it correctly, knowing where to invest real effort, and recognizing which corners are safe to cut. Whether you&#8217;re implementing it for the first time or inheriting something that barely works, the same principles apply.</p>
+<p>Dark mode is a baseline user expectation now, not a nice-to-have. Over 80 percent of smartphone users enable it when available. If your product ignores system preferences, you&#8217;re already behind. The question isn&#8217;t whether to implement it—it&#8217;s how to do it without creating two parallel design systems that drift apart and become a maintenance nightmare.</p>
+<p>This post covers the practical path: the CSS approach that scales, how to handle user preferences correctly, where theming breaks down, and what to prioritize when you&#8217;re a founder or product team with limited bandwidth.</p>
+<hr />
+<h2>Why This Matters Now</h2>
+<p>The shift toward dark mode isn&#8217;t purely aesthetic. There&#8217;s functional reasoning behind it.</p>
+<p>On OLED and AMOLED screens, dark pixels consume less power—battery life improves meaningfully on mobile. For users spending six or more hours a day in a product, eye strain reduction is real, not marketing copy. And from a product retention angle, ignoring system-level preferences signals that your product is slightly behind. That matters when you&#8217;re competing for trust in a premium market.</p>
+<p>From a development perspective, dark mode has become a test of how well your design system is actually built. Teams that chose semantic color naming over literal values—<code>color-background</code> instead of <code>#ffffff</code>—implement dark mode in an afternoon. Teams that scattered hardcoded hex values across 80 components spend a week on it.</p>
+<p>There&#8217;s a broader signal here. Your product&#8217;s ability to adapt to a user&#8217;s environment is a proxy for how thoughtfully it was built overall. A site that flashes white on load, or renders links in a color that disappears against a dark background, loses a layer of trust before a word is read. Founders pitching premium services or enterprise clients feel that, even if no one names it.</p>
+<hr />
+<h2>Key Considerations</h2>
+<h3>Start with a CSS custom properties architecture</h3>
+<p>The foundation of any robust dark mode implementation is CSS custom properties scoped to a theme attribute or class. Not inline styles. Not JavaScript-heavy theme objects passed through context. CSS at the root.</p>
+<pre><code class="language-css">:root {
+  --color-background: #ffffff;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-surface: #f4f4f5;
+  --color-border: #e4e4e7;
+  --color-accent: #6366f1;
+}
+
+[data-theme=&quot;dark&quot;] {
+  --color-background: #0f0f0f;
+  --color-text-primary: #f1f1f1;
+  --color-text-secondary: #a1a1aa;
+  --color-surface: #1a1a1a;
+  --color-border: #27272a;
+  --color-accent: #818cf8;
+}
+</code></pre>
+<p>Set <code>data-theme</code> on the <code>&lt;html&gt;</code> element. Everything else inherits. You never fork your component styles—you reference the variable, and the variable does the work.</p>
+<p>Most teams who struggle with dark mode are maintaining two separate visual states instead of one token layer. One source of truth for colors isn&#8217;t optional. It&#8217;s the entire strategy.</p>
+<h3>Respect system preferences by default</h3>
+<p>Before any user has set a preference in your product, respect what their OS already knows. The <code>prefers-color-scheme</code> media query exists for exactly this.</p>
+<pre><code class="language-css">@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0f0f0f;
+    --color-text-primary: #f1f1f1;
+    /* ... */
+  }
+}
+</code></pre>
+<p>If you&#8217;re offering a manual toggle too, the logic works like this: system preference is the default, user preference stored in <code>localStorage</code> overrides it, and the <code>data-theme</code> attribute reflects whichever wins. The key is setting that attribute as early as possible—inline in the <code>&lt;head&gt;</code>—to prevent a flash of the wrong theme on load.</p>
+<pre><code class="language-html">&lt;script&gt;
+  const saved = localStorage.getItem('theme');
+  const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', saved || preferred);
+&lt;/script&gt;
+</code></pre>
+<p>That single inline script, placed before any CSS loads, eliminates the flash. It&#8217;s one of the most commonly missed steps. Skip it and users see a white burst before dark mode kicks in—jarring, and it feels broken.</p>
+<h3>Handle images, icons, and third-party embeds separately</h3>
+<p>Custom properties handle your own components well. They don&#8217;t automatically fix:</p>
+<ul>
+<li>Images that only work on white backgrounds</li>
+<li>SVG icons with hardcoded fill colors</li>
+<li>Third-party embeds that render their own UI</li>
+<li>Charts, graphs, and canvas elements</li>
+<li>Screenshots and documentation images</li>
+</ul>
+<p>For SVGs you control, use <code>currentColor</code> instead of hardcoded fills wherever possible. For images that only work light, CSS can help:</p>
+<pre><code class="language-css">@media (prefers-color-scheme: dark) {
+  .logo-image {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+</code></pre>
+<p>Use this selectively. It works well for monochrome logos and icons. It breaks on photography and anything with complex color. For full control, maintain two image variants where it matters and swap them via <code>&lt;picture&gt;</code> with a <code>media</code> attribute.</p>
+<p>Third-party embeds are harder. Many support their own dark mode parameters—check the API or embed docs before writing workarounds. If they don&#8217;t support it, decide whether rebuilding the functionality natively is worth the effort.</p>
+<h3>Use semantic color names, not descriptive ones</h3>
+<p>This is the decision you&#8217;ll either thank yourself for or regret.</p>
+<p>Naming a token <code>--color-gray-100</code> describes what it looks like. Naming it <code>--color-surface</code> describes what it does. In dark mode, <code>--color-gray-100</code> makes no conceptual sense as a dark background. <code>--color-surface</code> does.</p>
+<p>Build your token system around roles, not values: surface, background, text-primary, text-secondary, border, accent, accent-hover, error, success. These translate across both themes. Gray-100 through gray-900 don&#8217;t.</p>
+<p>If you&#8217;re inheriting a codebase with descriptive names, do the refactor before implementing dark mode. Layering dark mode on top of descriptively named tokens is how you end up with a token called <code>--color-white</code> set to <code>#1a1a1a</code>—and a team that&#8217;s stopped trusting the design system entirely.</p>
+<h3>Test transitions and animation</h3>
+<p>Color transitions during theme switches can feel polished or glitchy. A simple transition on background and color goes a long way:</p>
+<pre><code class="language-css">:root {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+</code></pre>
+<p>Don&#8217;t transition everything. Borders, shadows, and accent colors all shifting simultaneously produces a muddied animation where nothing feels intentional. Pick the most prominent properties and let the rest snap.</p>
+<p>Also test what happens when the system theme changes while your app is open. Most apps ignore this entirely. It&#8217;s worth handling via a <code>matchMedia</code> listener so users with automatic light/dark switching see it reflected without a page reload.</p>
+<h3>What to skip if you have limited bandwidth</h3>
+<p>Small team, shipping fast? Here&#8217;s the honest prioritization.</p>
+<p><strong>Do first:</strong> Custom properties architecture, system preference detection, inline script for flash prevention.</p>
+<p><strong>Do when you have the cycles:</strong> Manual user toggle, preference persistence, theme-aware images.</p>
+<p><strong>Skip for now:</strong> Transitioning every UI element, building a full Storybook dark mode preview environment, supporting older browsers without CSS custom properties. They represent less than half a percent of your traffic and the workarounds cost days.</p>
+<p>Dark mode at 80 percent beats dark mode not shipped—as long as the core experience holds. The parts users actually notice are the text, the background, and whether the primary actions are readable. Get those right first.</p>
+<hr />
+<h2>Next Steps</h2>
+<p>Starting from a codebase with no theming infrastructure? The path is:</p>
+<ol>
+<li>Audit your current color usage. Find the hardcoded values.</li>
+<li>Build a semantic token map—8 to 12 tokens covers most interfaces.</li>
+<li>Replace hardcoded values with <code>var(--token-name)</code> across components.</li>
+<li>Add the <code>[data-theme="dark"]</code> overrides.</li>
+<li>Add the inline <code>&lt;head&gt;</code> script for flash prevention.</li>
+<li>Test on OLED mobile devices and in low-light conditions.</li>
+<li>Handle edge cases: SVGs, images, third-party embeds.</li>
+</ol>
+<p>For teams running on a design system or component library, step one is aligning with whoever owns the tokens. Dark mode implementations that go rogue—applied by one team without updating the system—create a two-track problem. The whole point is a single layer that everything inherits from.</p>
+<p>If you&#8217;re building a new product or redesigning from scratch, implement the token architecture on day one. It costs nothing at that stage and saves a week of refactoring later.</p>
+<p>From an <a href="https://alexevans.io/">AI-first web design perspective</a>, accessibility and adaptability are the same category. A site that handles dark mode well handles high-contrast mode well. It handles future theme variants well. It&#8217;s a design system that&#8217;s been thought through rather than bolted together.</p>
+<p>If your product is due for a rebuild or a serious audit—and dark mode is one of several things not working cleanly—that&#8217;s worth a focused conversation rather than piecemeal fixes.</p>
+<hr />
+<h2>Conclusion and CTA</h2>
+<p>Dark mode implementations are a proxy for code quality. Not always, but often. Teams with clean design systems ship it in hours. Teams without one ship it in days and come out the other side with tech debt shaped like toggle buttons.</p>
+<p>The core approach isn&#8217;t complicated: CSS custom properties with semantic naming, system preference detection, an inline script that prevents flash, and disciplined handling of assets you don&#8217;t fully control. The details—transitions, third-party embeds, image variants—are refinements you layer in after the foundation is solid.</p>
+<p>What this isn&#8217;t is a visual styling exercise you run in isolation from the rest of your stack. It touches your token architecture, your component structure, your asset pipeline, and how you store user preferences. Do it with that scope in mind and it holds up. Treat it as a one-afternoon hack and you&#8217;ll be revisiting it every time a new component joins the system.</p>
+<p>The teams I&#8217;ve worked with who skipped the token architecture step are the same ones who ask me to help them clean it up six months later. The ones who invested a day in the foundation stopped thinking about it.</p>
+<hr />
+<p>Your site should earn its keep. <a href="https://alexevans.io/#contact">Request an AI and website teardown</a>—no pitch, just a clear view of what&#8217;s working and what isn&#8217;t.</p>
+<hr />
+<p><em>Meta Title:</em> Dark Mode Implementations: A Practical Guide for Developers<br />
+<em>Meta Description:</em> Learn how to build dark mode correctly using CSS custom properties, system preference detection, and semantic token architecture. A practical implementation guide.<br />
+<em>Twitter:</em> Most dark mode problems aren&#8217;t toggle problems. They&#8217;re token problems. Here&#8217;s how to build it so it actually holds up.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://alexevans.io/blog/dark-mode-implementations/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

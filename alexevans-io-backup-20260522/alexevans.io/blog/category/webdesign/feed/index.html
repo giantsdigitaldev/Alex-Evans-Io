@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Web Design &#8211; Alex Evans Blog</title>
+	<atom:link href="https://alexevans.io/blog/category/webdesign/feed/" rel="self" type="application/rss+xml" />
+	<link>https://alexevans.io/blog</link>
+	<description></description>
+	<lastBuildDate>Sat, 14 Mar 2026 03:31:19 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9.4</generator>
+	<item>
+		<title>Dark mode implementations</title>
+		<link>https://alexevans.io/blog/dark-mode-implementations/</link>
+					<comments>https://alexevans.io/blog/dark-mode-implementations/#respond</comments>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate></pubDate>
+				<category><![CDATA[Dark Mode Design]]></category>
+		<category><![CDATA[UI/UX Design]]></category>
+		<category><![CDATA[Web Design]]></category>
+		<guid isPermaLink="false">https://alexevans.io/blog/?p=38</guid>
+
+					<description><![CDATA[Dark mode implementations: practical guide for founders and teams. What to do first and what to skip.]]></description>
+										<content:encoded><![CDATA[<h1>Dark Mode Implementations</h1>
+<h2>Introduction</h2>
+<p>Dark mode looks simple until you&#8217;re three hours deep in a z-index issue, a mismatched SVG, and a modal rendering white-on-white. A toggle, a color switch, done—that&#8217;s what most developers assume going in.</p>
+<p>This guide isn&#8217;t about whether dark mode looks cool. It does. It&#8217;s about building it correctly, knowing where to invest real effort, and recognizing which corners are safe to cut. Whether you&#8217;re implementing it for the first time or inheriting something that barely works, the same principles apply.</p>
+<p>Dark mode is a baseline user expectation now, not a nice-to-have. Over 80 percent of smartphone users enable it when available. If your product ignores system preferences, you&#8217;re already behind. The question isn&#8217;t whether to implement it—it&#8217;s how to do it without creating two parallel design systems that drift apart and become a maintenance nightmare.</p>
+<p>This post covers the practical path: the CSS approach that scales, how to handle user preferences correctly, where theming breaks down, and what to prioritize when you&#8217;re a founder or product team with limited bandwidth.</p>
+<hr />
+<h2>Why This Matters Now</h2>
+<p>The shift toward dark mode isn&#8217;t purely aesthetic. There&#8217;s functional reasoning behind it.</p>
+<p>On OLED and AMOLED screens, dark pixels consume less power—battery life improves meaningfully on mobile. For users spending six or more hours a day in a product, eye strain reduction is real, not marketing copy. And from a product retention angle, ignoring system-level preferences signals that your product is slightly behind. That matters when you&#8217;re competing for trust in a premium market.</p>
+<p>From a development perspective, dark mode has become a test of how well your design system is actually built. Teams that chose semantic color naming over literal values—<code>color-background</code> instead of <code>#ffffff</code>—implement dark mode in an afternoon. Teams that scattered hardcoded hex values across 80 components spend a week on it.</p>
+<p>There&#8217;s a broader signal here. Your product&#8217;s ability to adapt to a user&#8217;s environment is a proxy for how thoughtfully it was built overall. A site that flashes white on load, or renders links in a color that disappears against a dark background, loses a layer of trust before a word is read. Founders pitching premium services or enterprise clients feel that, even if no one names it.</p>
+<hr />
+<h2>Key Considerations</h2>
+<h3>Start with a CSS custom properties architecture</h3>
+<p>The foundation of any robust dark mode implementation is CSS custom properties scoped to a theme attribute or class. Not inline styles. Not JavaScript-heavy theme objects passed through context. CSS at the root.</p>
+<pre><code class="language-css">:root {
+  --color-background: #ffffff;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-surface: #f4f4f5;
+  --color-border: #e4e4e7;
+  --color-accent: #6366f1;
+}
+
+[data-theme=&quot;dark&quot;] {
+  --color-background: #0f0f0f;
+  --color-text-primary: #f1f1f1;
+  --color-text-secondary: #a1a1aa;
+  --color-surface: #1a1a1a;
+  --color-border: #27272a;
+  --color-accent: #818cf8;
+}
+</code></pre>
+<p>Set <code>data-theme</code> on the <code>&lt;html&gt;</code> element. Everything else inherits. You never fork your component styles—you reference the variable, and the variable does the work.</p>
+<p>Most teams who struggle with dark mode are maintaining two separate visual states instead of one token layer. One source of truth for colors isn&#8217;t optional. It&#8217;s the entire strategy.</p>
+<h3>Respect system preferences by default</h3>
+<p>Before any user has set a preference in your product, respect what their OS already knows. The <code>prefers-color-scheme</code> media query exists for exactly this.</p>
+<pre><code class="language-css">@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0f0f0f;
+    --color-text-primary: #f1f1f1;
+    /* ... */
+  }
+}
+</code></pre>
+<p>If you&#8217;re offering a manual toggle too, the logic works like this: system preference is the default, user preference stored in <code>localStorage</code> overrides it, and the <code>data-theme</code> attribute reflects whichever wins. The key is setting that attribute as early as possible—inline in the <code>&lt;head&gt;</code>—to prevent a flash of the wrong theme on load.</p>
+<pre><code class="language-html">&lt;script&gt;
+  const saved = localStorage.getItem('theme');
+  const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', saved || preferred);
+&lt;/script&gt;
+</code></pre>
+<p>That single inline script, placed before any CSS loads, eliminates the flash. It&#8217;s one of the most commonly missed steps. Skip it and users see a white burst before dark mode kicks in—jarring, and it feels broken.</p>
+<h3>Handle images, icons, and third-party embeds separately</h3>
+<p>Custom properties handle your own components well. They don&#8217;t automatically fix:</p>
+<ul>
+<li>Images that only work on white backgrounds</li>
+<li>SVG icons with hardcoded fill colors</li>
+<li>Third-party embeds that render their own UI</li>
+<li>Charts, graphs, and canvas elements</li>
+<li>Screenshots and documentation images</li>
+</ul>
+<p>For SVGs you control, use <code>currentColor</code> instead of hardcoded fills wherever possible. For images that only work light, CSS can help:</p>
+<pre><code class="language-css">@media (prefers-color-scheme: dark) {
+  .logo-image {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+</code></pre>
+<p>Use this selectively. It works well for monochrome logos and icons. It breaks on photography and anything with complex color. For full control, maintain two image variants where it matters and swap them via <code>&lt;picture&gt;</code> with a <code>media</code> attribute.</p>
+<p>Third-party embeds are harder. Many support their own dark mode parameters—check the API or embed docs before writing workarounds. If they don&#8217;t support it, decide whether rebuilding the functionality natively is worth the effort.</p>
+<h3>Use semantic color names, not descriptive ones</h3>
+<p>This is the decision you&#8217;ll either thank yourself for or regret.</p>
+<p>Naming a token <code>--color-gray-100</code> describes what it looks like. Naming it <code>--color-surface</code> describes what it does. In dark mode, <code>--color-gray-100</code> makes no conceptual sense as a dark background. <code>--color-surface</code> does.</p>
+<p>Build your token system around roles, not values: surface, background, text-primary, text-secondary, border, accent, accent-hover, error, success. These translate across both themes. Gray-100 through gray-900 don&#8217;t.</p>
+<p>If you&#8217;re inheriting a codebase with descriptive names, do the refactor before implementing dark mode. Layering dark mode on top of descriptively named tokens is how you end up with a token called <code>--color-white</code> set to <code>#1a1a1a</code>—and a team that&#8217;s stopped trusting the design system entirely.</p>
+<h3>Test transitions and animation</h3>
+<p>Color transitions during theme switches can feel polished or glitchy. A simple transition on background and color goes a long way:</p>
+<pre><code class="language-css">:root {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+</code></pre>
+<p>Don&#8217;t transition everything. Borders, shadows, and accent colors all shifting simultaneously produces a muddied animation where nothing feels intentional. Pick the most prominent properties and let the rest snap.</p>
+<p>Also test what happens when the system theme changes while your app is open. Most apps ignore this entirely. It&#8217;s worth handling via a <code>matchMedia</code> listener so users with automatic light/dark switching see it reflected without a page reload.</p>
+<h3>What to skip if you have limited bandwidth</h3>
+<p>Small team, shipping fast? Here&#8217;s the honest prioritization.</p>
+<p><strong>Do first:</strong> Custom properties architecture, system preference detection, inline script for flash prevention.</p>
+<p><strong>Do when you have the cycles:</strong> Manual user toggle, preference persistence, theme-aware images.</p>
+<p><strong>Skip for now:</strong> Transitioning every UI element, building a full Storybook dark mode preview environment, supporting older browsers without CSS custom properties. They represent less than half a percent of your traffic and the workarounds cost days.</p>
+<p>Dark mode at 80 percent beats dark mode not shipped—as long as the core experience holds. The parts users actually notice are the text, the background, and whether the primary actions are readable. Get those right first.</p>
+<hr />
+<h2>Next Steps</h2>
+<p>Starting from a codebase with no theming infrastructure? The path is:</p>
+<ol>
+<li>Audit your current color usage. Find the hardcoded values.</li>
+<li>Build a semantic token map—8 to 12 tokens covers most interfaces.</li>
+<li>Replace hardcoded values with <code>var(--token-name)</code> across components.</li>
+<li>Add the <code>[data-theme="dark"]</code> overrides.</li>
+<li>Add the inline <code>&lt;head&gt;</code> script for flash prevention.</li>
+<li>Test on OLED mobile devices and in low-light conditions.</li>
+<li>Handle edge cases: SVGs, images, third-party embeds.</li>
+</ol>
+<p>For teams running on a design system or component library, step one is aligning with whoever owns the tokens. Dark mode implementations that go rogue—applied by one team without updating the system—create a two-track problem. The whole point is a single layer that everything inherits from.</p>
+<p>If you&#8217;re building a new product or redesigning from scratch, implement the token architecture on day one. It costs nothing at that stage and saves a week of refactoring later.</p>
+<p>From an <a href="https://alexevans.io/">AI-first web design perspective</a>, accessibility and adaptability are the same category. A site that handles dark mode well handles high-contrast mode well. It handles future theme variants well. It&#8217;s a design system that&#8217;s been thought through rather than bolted together.</p>
+<p>If your product is due for a rebuild or a serious audit—and dark mode is one of several things not working cleanly—that&#8217;s worth a focused conversation rather than piecemeal fixes.</p>
+<hr />
+<h2>Conclusion and CTA</h2>
+<p>Dark mode implementations are a proxy for code quality. Not always, but often. Teams with clean design systems ship it in hours. Teams without one ship it in days and come out the other side with tech debt shaped like toggle buttons.</p>
+<p>The core approach isn&#8217;t complicated: CSS custom properties with semantic naming, system preference detection, an inline script that prevents flash, and disciplined handling of assets you don&#8217;t fully control. The details—transitions, third-party embeds, image variants—are refinements you layer in after the foundation is solid.</p>
+<p>What this isn&#8217;t is a visual styling exercise you run in isolation from the rest of your stack. It touches your token architecture, your component structure, your asset pipeline, and how you store user preferences. Do it with that scope in mind and it holds up. Treat it as a one-afternoon hack and you&#8217;ll be revisiting it every time a new component joins the system.</p>
+<p>The teams I&#8217;ve worked with who skipped the token architecture step are the same ones who ask me to help them clean it up six months later. The ones who invested a day in the foundation stopped thinking about it.</p>
+<hr />
+<p>Your site should earn its keep. <a href="https://alexevans.io/#contact">Request an AI and website teardown</a>—no pitch, just a clear view of what&#8217;s working and what isn&#8217;t.</p>
+<hr />
+<p><em>Meta Title:</em> Dark Mode Implementations: A Practical Guide for Developers<br />
+<em>Meta Description:</em> Learn how to build dark mode correctly using CSS custom properties, system preference detection, and semantic token architecture. A practical implementation guide.<br />
+<em>Twitter:</em> Most dark mode problems aren&#8217;t toggle problems. They&#8217;re token problems. Here&#8217;s how to build it so it actually holds up.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://alexevans.io/blog/dark-mode-implementations/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>3D immersive elements</title>
+		<link>https://alexevans.io/blog/3d-immersive-elements/</link>
+					<comments>https://alexevans.io/blog/3d-immersive-elements/#respond</comments>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate></pubDate>
+				<category><![CDATA[3D Design]]></category>
+		<category><![CDATA[Web Design]]></category>
+		<guid isPermaLink="false">https://alexevans.io/blog/?p=29</guid>
+
+					<description><![CDATA[3D immersive elements: practical guide for founders and teams. What to do first and what to skip.]]></description>
+										<content:encoded><![CDATA[<h1>3D Immersive Elements: What to Build, What to Skip, and How to Get It Right</h1>
+<h2>Introduction</h2>
+<p>3D immersive elements are everywhere right now—product configurators, interactive hero sections, scroll-driven depth effects, WebGL environments that feel closer to a game engine than a webpage. If you&#8217;ve landed on a well-funded SaaS landing page or a premium e-commerce product page recently, you&#8217;ve seen what this looks like at its best.</p>
+<p>The question is whether you actually need it.</p>
+<p>Most founders who ask me about 3D are chasing an aesthetic they saw somewhere else. That&#8217;s not always the wrong instinct—but aesthetic without function is expensive theater. Before you commission a Three.js build or drop a Spline embed into your hero, you need a clear answer to one question: what job is this 3D element doing that a well-crafted static layout can&#8217;t?</p>
+<p>This guide is for founders, product leads, and technical teams who want to make that call correctly. I&#8217;ll cover what 3D immersive elements actually are in a web context, why the timing matters, what to evaluate before you build, and how to move forward without burning six weeks and a significant chunk of budget on something that slows your site down and loses your users in the process.</p>
+<hr />
+<h2>Why This Matters Now</h2>
+<p>The tooling has matured faster than most people realize. Three years ago, putting a high-fidelity 3D scene on a website meant hiring a specialist WebGL developer or shipping something that ran at 15fps on a mid-range laptop and broke entirely on mobile. Neither option worked for most teams.</p>
+<p>That&#8217;s changed.</p>
+<p>Spline, React Three Fiber, and Lottie&#8217;s 3D extensions have compressed the implementation barrier significantly. Model optimization pipelines are tighter. Browser support for WebGL 2.0 is essentially universal. GPU performance on consumer devices—including phones—has improved enough that lightweight 3D scenes are viable without a dedicated performance engineer behind them.</p>
+<p>User expectations have shifted too. Above-the-fold sections that once impressed with parallax scrolling now feel flat. The bar for &#8220;this site feels premium&#8221; has moved, particularly in B2B SaaS, fintech, consumer tech, and anything selling a physical product with a strong brand story.</p>
+<p>There&#8217;s also an SEO angle here that rarely gets discussed. Google&#8217;s Core Web Vitals—specifically Largest Contentful Paint and Interaction to Next Paint—are performance metrics that directly affect ranking. A poorly implemented 3D scene tanks those scores. A well-implemented one, especially when it replaces a heavy video loop, can actually improve them. Build quality has downstream consequences well beyond aesthetics.</p>
+<p>We&#8217;re at the point where 3D immersive elements are no longer a luxury signal. They&#8217;re a differentiator for teams that execute well and a liability for teams that don&#8217;t.</p>
+<hr />
+<h2>Key Considerations</h2>
+<h3>Define the functional role first</h3>
+<p>Every 3D element on a site should map to at least one of three functions: it communicates something a flat image can&#8217;t, it creates a meaningful interactive moment that moves a user toward conversion, or it reduces cognitive load by replacing a paragraph of explanation with a visual model.</p>
+<p>If it doesn&#8217;t do any of those three things, it&#8217;s decoration. Decoration has a place—but not at the cost of performance, load time, and development budget.</p>
+<p>The clearest wins I&#8217;ve seen: hardware product pages where a rotatable 3D model replaces ten static photos and reduces return rates. SaaS platforms where an interactive architecture diagram replaces a wall of feature bullets. Brand hero sections where a subtle ambient 3D scene—not interactive, just present—creates depth and texture that communicates craft without demanding attention.</p>
+<p>The clearest losses: agency sites where a 3D loading screen burns three seconds before the user sees anything meaningful. Startup landing pages where a floating 3D shape exists purely to look impressive but has nothing to do with the product being sold.</p>
+<h3>Performance is the real technical problem</h3>
+<p>This is where most teams underestimate the work. 3D assets are heavy. A GLTF model that looks fine in Blender can easily be 15MB unoptimized. Textures compound the problem. Shadows, reflections, and lighting calculations compound it further.</p>
+<p>The practical implementation checklist:</p>
+<ul>
+<li>Use Draco compression on GLTF models. Non-negotiable for anything going into a web build.</li>
+<li>Lazy-load 3D scenes. The model should not block the initial page render.</li>
+<li>Set a device performance threshold. On low-end devices or slow connections, serve a high-quality static fallback. That&#8217;s not a compromise—it&#8217;s good engineering.</li>
+<li>Cap polygon count for real-time web rendering. Sub-100k polygons for most interactive objects; simpler for ambient background elements.</li>
+<li>Audit LCP and INP before and after implementation. If the numbers move the wrong direction, the build isn&#8217;t done.</li>
+</ul>
+<p>React Three Fiber paired with a solid asset pipeline handles most of this well if you know what you&#8217;re doing. Spline is faster to prototype but gives you less control over performance optimization—an important trade-off to understand before you commit.</p>
+<h3>Mobile is not optional</h3>
+<p>About half of web traffic is mobile. Any 3D element without a defined mobile behavior—whether that&#8217;s a simplified version, a static fallback, or a graceful degradation—is a half-finished feature. GPU and memory constraints on mobile are real. Touch interaction patterns for 3D objects are fundamentally different from mouse patterns and need to be designed separately, not retrofitted.</p>
+<p>This is one of the places I&#8217;ve seen teams get burned most often. Desktop looks incredible. Mobile is unusable or invisible. The client finds out after launch.</p>
+<h3>Accessibility and SEO don&#8217;t disappear</h3>
+<p>Canvas-rendered 3D content is invisible to screen readers and search crawlers by default. If your hero section is a Three.js canvas with no underlying HTML content, you have a page that tells Google nothing and tells a visually impaired user nothing.</p>
+<p>Fix it with:</p>
+<ul>
+<li>Meaningful alt attributes on canvas fallback images</li>
+<li>Accessible text overlays—headline, value proposition, CTA—sitting in the DOM on top of or alongside the 3D element, not embedded inside the canvas</li>
+<li>Proper <code>aria-label</code> attributes on interactive 3D components</li>
+<li>Schema and structured data on surrounding page content; don&#8217;t expect the canvas to carry any semantic weight</li>
+</ul>
+<h3>The build-versus-buy decision</h3>
+<p>Unless 3D is core to your product experience—a configurator, a virtual showroom, something where interactivity is the value proposition—you probably don&#8217;t need a fully custom WebGL build.</p>
+<p>For most founder-led businesses and startups, the right approach is: a Spline scene or a pre-optimized GLTF in a React Three Fiber wrapper, scoped to one well-defined section, with a static fallback, deferred loading, and performance-tested before it goes anywhere near production.</p>
+<p>Custom WebGL development is expensive and slow. It&#8217;s justified when the use case demands it. Most use cases don&#8217;t.</p>
+<p>If you&#8217;re working with <a href="https://alexevans.io/">a web team that understands both design intent and technical constraints</a>, the conversation about what to build custom versus what to source and optimize looks very different than if you&#8217;re buying a full bespoke build from a motion studio with no SEO context.</p>
+<hr />
+<h2>Next Steps</h2>
+<p>If you&#8217;re trying to figure out whether 3D belongs in your next build or redesign, here&#8217;s the sequence.</p>
+<p><strong>Step one: Audit your current performance baseline.</strong> Run Lighthouse and PageSpeed Insights before you add anything. If your LCP is already above 3.5 seconds or your CLS score is poor, fix that first. Adding 3D to a slow site makes it slower.</p>
+<p><strong>Step two: Identify the one section where 3D has the highest potential return.</strong> Don&#8217;t 3D-ify everything. Pick the single element—usually the hero or a key product explanation section—where the medium genuinely helps. Scope it tightly.</p>
+<p><strong>Step three: Prototype before you commission.</strong> Spline has a free tier. You can test visual direction and rough interactivity before involving a developer. It&#8217;s a fast way to either confirm the idea or realize it doesn&#8217;t look the way you imagined.</p>
+<p><strong>Step four: Build with a performance budget.</strong> Set a target: the 3D scene adds no more than X kilobytes to the initial page load after optimization. The exact number depends on your site, but having a number at all keeps the build disciplined.</p>
+<p><strong>Step five: Test on real devices, not just your MacBook Pro.</strong> Pull out an older Android. Check the experience on a 4G connection. If it falls apart there, the implementation isn&#8217;t done.</p>
+<p><strong>Step six: Integrate SEO content properly.</strong> Your H1, primary copy, and CTA need to live in the DOM as actual HTML—not trapped inside a canvas. This matters for crawlability and for anyone with JavaScript issues or accessibility needs.</p>
+<p>Every team I work with—out of Orlando and across the US—runs through a version of this checklist before anything 3D ships. It&#8217;s not glamorous, but it&#8217;s what separates a site that looks impressive and performs well from one that looks impressive and quietly kills your conversion rate.</p>
+<hr />
+<h2>Conclusion</h2>
+<p>3D immersive elements aren&#8217;t a trend to chase or dismiss. They&#8217;re a tool. Like any tool, the value depends entirely on whether you&#8217;re using it for the right job with the right craft behind it.</p>
+<p>The implementation bar is higher than it looks from the outside. Performance, accessibility, mobile behavior, and SEO integration all have to be solved in parallel—not bolted on afterward. Most teams that run into problems with 3D on the web didn&#8217;t make a bad creative decision. They made an incomplete technical one.</p>
+<p>When it works, it works well. A well-executed 3D product interaction can do more for conversion than a month of copy revisions. A subtle ambient depth effect in a hero can communicate brand quality in a way flat design simply can&#8217;t. The ceiling is genuinely high.</p>
+<p>The floor, if you&#8217;re not careful, is expensive and slow and invisible to Google.</p>
+<p>Get the foundation right. Build only what earns its place. Test before you ship.</p>
+<hr />
+<p>Your site should earn its keep, and 3D done right is one of the more powerful ways to make that happen. <a href="https://alexevans.io/#contact">Request an AI and website teardown</a>—no pitch, just a clear view of what&#8217;s working, what isn&#8217;t, and whether 3D belongs in your next build.</p>
+<hr />
+]]></content:encoded>
+					
+					<wfw:commentRss>https://alexevans.io/blog/3d-immersive-elements/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

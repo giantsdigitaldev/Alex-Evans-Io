@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Conversational UI design &#8211; Alex Evans Blog</title>
+	<atom:link href="https://alexevans.io/blog/category/conversational-ui-design/feed/" rel="self" type="application/rss+xml" />
+	<link>https://alexevans.io/blog</link>
+	<description></description>
+	<lastBuildDate>Tue, 10 Mar 2026 14:59:27 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.9.4</generator>
+	<item>
+		<title>Conversational UI design</title>
+		<link>https://alexevans.io/blog/conversational-ui-design/</link>
+					<comments>https://alexevans.io/blog/conversational-ui-design/#respond</comments>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate></pubDate>
+				<category><![CDATA[Conversational UI design]]></category>
+		<guid isPermaLink="false">https://alexevans.io/blog/?p=20</guid>
+
+					<description><![CDATA[Explore Conversational UI design. Practical guide for founders and teams.]]></description>
+										<content:encoded><![CDATA[<h1>Conversational UI Design</h1>
+<h2>Introduction</h2>
+<p>Most interfaces are still built around the assumption that users know what they want, where to find it, and how to ask for it correctly. Forms with twelve fields. Nav menus five levels deep. FAQ pages that answer questions nobody asked.</p>
+<p>Conversational UI design challenges that assumption. Instead of making the user adapt to the interface, you build an interface that adapts to the user — through natural language, sequential dialogue, and context-aware responses.</p>
+<p>This is not a new concept. Chatbots have existed for decades, and most of them were terrible. What has changed is the underlying capability. Large language models, embedded AI, and real-time context handling have made it possible to build conversational interfaces that are actually useful — not just technically functional, but commercially valuable.</p>
+<p>If you are a founder or product lead trying to understand whether conversational UI belongs in your stack, this is the practical breakdown. Not a whitepaper. Not a concept piece. A working guide to what it is, why it matters right now, and what to do about it.</p>
+<hr />
+<h2>Why This Matters Now</h2>
+<p>The timing is not arbitrary. Three forces have converged in the last two years that make conversational UI design a real implementation priority rather than a futuristic talking point.</p>
+<p><strong>The models caught up.</strong> GPT-4, Claude, Gemini, and their successors are capable of maintaining context across multi-turn conversations, following nuanced instructions, and generating responses that do not sound like error messages. That was not true three years ago. The gap between what users expected from conversational interfaces and what those interfaces could actually deliver was embarrassing. That gap has narrowed significantly.</p>
+<p><strong>User expectations shifted.</strong> People talk to AI daily now — through consumer apps, voice assistants, and embedded tools. The behavior has normalized. Users increasingly expect digital products to understand intent, not just parse commands. If your interface still forces them into rigid dropdown logic when they could just describe what they need, you are creating friction that did not exist two years ago.</p>
+<p><strong>The cost of building dropped.</strong> Connecting a conversational layer to an existing product used to require a dedicated NLP team and months of training data. Today, with API access to foundation models, a well-scoped conversational UI can be built and deployed in weeks. That changes the ROI math for startups and growing teams.</p>
+<p>The companies getting this right are not necessarily the ones with the biggest engineering teams. They are the ones who recognized early that the interface layer is where user trust is won or lost — and that a conversational layer, done well, removes the cognitive load that causes drop-off.</p>
+<p>Most companies still treat chatbots as a customer service triage tool. The better move is to treat conversational UI as a primary product layer — the thing that guides users, captures intent, qualifies leads, surfaces knowledge, and closes loops.</p>
+<hr />
+<h2>Key Considerations</h2>
+<p>Getting conversational UI design right is not about picking the right widget and dropping it into a corner of your page. It requires deliberate architecture decisions, honest scoping, and a clear mental model of what the conversation is supposed to accomplish.</p>
+<h3>Define the job before you design the flow</h3>
+<p>Every effective conversational UI has a specific job. Not &#8220;help users,&#8221; not &#8220;answer questions&#8221; — a specific, bounded function. A conversational intake form that replaces a static lead form. A knowledge assistant that surfaces internal SOPs so your support team stops asking the same questions in Slack. A product configurator that walks a buyer through options based on their stated constraints.</p>
+<p>Ambiguity in the job definition creates ambiguity in the experience. Users who do not know what the assistant can do for them will not engage with it — or worse, they will engage, get a non-answer, and lose trust in the whole product.</p>
+<p>Before you write a single prompt or map a single dialogue tree, write one sentence that completes this: <em>This interface exists so that [user] can [specific action] without [existing friction point].</em> If you cannot write that sentence, you are not ready to build.</p>
+<h3>Context is the design material</h3>
+<p>In traditional UI design, the primary materials are layout, typography, and component hierarchy. In conversational UI design, the primary material is context — what the system knows about the user, the conversation history, the current intent, and the appropriate next move.</p>
+<p>A conversational interface that loses thread between turns feels broken. A system that asks for information the user already provided feels like talking to someone who was not listening. These are not just UX issues — they are trust issues. Users calibrate their confidence in a product based on how well it tracks context.</p>
+<p>Practically, this means:</p>
+<ul>
+<li><strong>Session memory</strong> — retaining information within a single conversation to avoid repetition</li>
+<li><strong>User-level memory</strong> — where appropriate and with consent, retaining preferences and history across sessions</li>
+<li><strong>Intent tracking</strong> — identifying not just what the user said, but what they are trying to accomplish</li>
+<li><strong>Graceful degradation</strong> — knowing when the system does not have enough context to answer well, and saying so clearly rather than hallucinating a response</li>
+</ul>
+<h3>Personality and tone are product decisions</h3>
+<p>The voice of a conversational UI is not a nice-to-have. It is a product decision with direct impact on conversion, trust, and retention. A financial services assistant that sounds casual and breezy will lose users. A creative agency&#8217;s onboarding bot that sounds like a corporate compliance document will do the same.</p>
+<p>Your conversational UI should have a defined persona — not an elaborate backstory with a name and an avatar, necessarily, but a consistent voice that matches your brand and the expectations of your user. Define it before you write system prompts. Test it with real users. Adjust it.</p>
+<p>One thing worth flagging: there is a meaningful difference between an assistant that sounds human and one that pretends to be human. Transparency about AI involvement is not just an ethical consideration — it is a trust consideration. Users who feel deceived disengage. Users who understand they are talking to an AI and find it genuinely useful will keep using it.</p>
+<h3>Fallback design is as important as the happy path</h3>
+<p>Most conversational UI design work goes into the happy path — the scenario where the user asks a clear question, the system understands it, and the right answer comes back. That scenario is the minority of real interactions.</p>
+<p>Users misspell things. They ask questions outside the system&#8217;s scope. They change their mind mid-conversation. They abandon a thread and come back. They ask the same question five different ways because the first four answers did not land.</p>
+<p>Designing for these cases is not a secondary concern. Build clear escalation paths — to a human, to a help document, to a contact form. Build recovery language that does not sound like an error state. Build confidence thresholds that determine when the system should ask for clarification rather than guessing.</p>
+<p>A conversational UI that handles edge cases gracefully feels like a polished product. One that does not feels like a proof of concept that never made it to production.</p>
+<h3>Integration depth determines real value</h3>
+<p>A conversational layer sitting on top of a disconnected product is a parlor trick. The real value of conversational UI comes from integration — connecting the interface to the systems that hold the actual data, knowledge, and actions users need.</p>
+<p>For a SaaS product, that might mean the assistant can pull live account data, trigger workflows, or update user settings through conversation. For a service business, it might mean a knowledge assistant that is actually connected to your documentation, CRM, and internal SOPs — so it can answer questions that are specific to your business, not just generic best practices.</p>
+<p>This is where I see most teams underinvest. They build the conversational layer, get it working in demos, and ship it connected to nothing. Then they wonder why users stop using it after the first session.</p>
+<p>If you are building this for your business — and you should seriously consider it — the architecture question is: what does the assistant need to be connected to in order to be genuinely useful six months from now? Start there, not with the interface.</p>
+<hr />
+<h2>Next Steps</h2>
+<p>If you are a founder or product lead reading this and thinking about where to move, here is a practical sequencing that has worked across the projects I have shipped.</p>
+<p><strong>Start with one high-friction moment.</strong> Do not try to conversationalize your entire product or website at once. Identify the single interaction where users most commonly get stuck, drop off, or reach out to your team for help. That is where the conversational layer will deliver the fastest measurable return.</p>
+<p><strong>Audit your existing content and knowledge.</strong> Most businesses have more usable knowledge than they realize — scattered across docs, SOPs, support transcripts, sales decks, and email threads. A conversational UI that can surface this knowledge is worth far more than one that generates generic responses. Before you build, figure out what you already have.</p>
+<p><strong>Prototype the dialogue, not the interface.</strong> Write out fifteen to twenty actual conversations your assistant might have — including the hard ones. What happens when the user asks something off-topic? What does escalation look like? How does the system handle a request it cannot fulfill? This exercise will surface design problems faster than any wireframe.</p>
+<p><strong>Measure intent, not just engagement.</strong> A conversational UI that generates lots of messages is not necessarily working. Define what success looks like in terms of user outcomes — did they complete the intake? Did they find the answer? Did they book the call? — and instrument for those outcomes from day one.</p>
+<p><strong>Plan for iteration.</strong> The first version of your conversational UI will teach you more about your users than six months of analytics ever could. Build it to be iterable. Capture conversation logs (with appropriate consent and privacy controls), review them regularly, and update your prompts and flows based on what you see.</p>
+<p>If you are sitting on a product, a service business, or an internal operation with real knowledge that nobody can find, an AI-first conversational layer is one of the highest-leverage investments you can make right now. The technology is mature enough to build with. The window for differentiation is still open — but it will not be for long.</p>
+<hr />
+<h2>Conclusion</h2>
+<p>Conversational UI design is not about adding a chat window to your website. It is about rethinking the entire layer through which users interact with your product, your knowledge, and your business.</p>
+<p>Done badly, it adds noise. Done well, it removes friction at every stage — intake, support, qualification, onboarding, internal operations. It turns passive pages into active systems.</p>
+<p>The companies that will own their categories in the next three years are not necessarily the ones with the most features. They are the ones with the most usable interfaces. Conversational UI, built on solid architecture and connected to real knowledge, is one of the clearest paths to that.</p>
+<p>The technical foundation exists. The user behavior is already there. What most teams are missing is the implementation clarity to go from idea to working product.</p>
+<p>That is a solvable problem.</p>
+<hr />
+<p>Your site should earn its keep. <a href="https://alexevans.io/#contact">Request an AI and website teardown</a> — no pitch, just a clear view of what&#8217;s working and what isn&#8217;t.</p>
+<hr />
+]]></content:encoded>
+					
+					<wfw:commentRss>https://alexevans.io/blog/conversational-ui-design/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
